@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP FibraWerjo - SPA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Pontano+Sans&display=swap" rel="stylesheet">
+    <style>
+        body{font-family:'Poppins',sans-serif}.font-pontano{font-family:'Pontano Sans',sans-serif}.bg-gold-mustard{background-color:#DDA853}.text-blue-dark{color:#183B4E}.text-brand-black{color:#000}.bg-blue-medium{background-color:#27548A}.hover\:bg-blue-medium-darker:hover{background-color:#204473}.bg-cream{background-color:#F5EEDC}.bg-dashboard-main{background-color:#FBFBFB}.rounded-card{border-radius:35px}.rounded-input{border-radius:8px}.rounded-button{border-radius:8px}.sidebar-link{transition:background-color .2s,color .2s;color:#183B4E;font-weight:500}.sidebar-link:hover,.sidebar-link.active-module{background-color:#27548A;color:#fff}.sidebar-title{color:#183B4E}.sidebar-category-title{color:#183B4E;opacity:.7}.table-header-custom th{color:#183B4E;font-family:'Poppins',sans-serif}.data-cell{font-family:'Pontano Sans',sans-serif;color:#183B4E}.data-cell-dimmed{font-family:'Pontano Sans',sans-serif;color:#4b5563}.action-link-detail{color:#5B21B6}.action-link-edit{color:#2563EB}.action-link-delete{color:#DC2626}.status-badge-active,.status-badge-Aktif{background-color:#D1FAE5;color:#065F46}.status-badge-inactive,.status-badge-Nonaktif{background-color:#FEE2E2;color:#991B1B}.status-badge-posted,.status-badge-Posted{background-color:#DBEAFE;color:#1E40AF}.status-badge-draft,.status-badge-Draft{background-color:#FEF3C7;color:#92400E}.status-badge-Lunas{background-color:#D1FAE5;color:#065F46}.status-badge-Belum_Lunas{background-color:#FEE2E2;color:#991B1B}.status-badge-Sebagian_Lunas{background-color:#FEF9C3;color:#713F12}.status-badge-admin{background-color:#C7D2FE;color:#4338CA}.status-badge-staff{background-color:#E0E7FF;color:#4F46E5}.status-badge-viewer{background-color:#F3F4F6;color:#4B5563}.journal-line-item input,.invoice-line-item input{min-width:80px}.invoice-line-item select{min-width:150px}
+    </style>
+</head>
+<body class="bg-cream">
+    <div class="flex h-screen">
+        <aside class="w-64 bg-gold-mustard p-6 space-y-4 fixed h-full overflow-y-auto shadow-xl">
+            <h1 class="text-3xl font-semibold sidebar-title text-center mb-8">FibraWerjo</h1>
+            <nav class="space-y-1" id="sidebarNav">
+                <a href="#" onclick="showView('dashboard', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Dashboard</a>
+                <div class="pt-3"><h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Master Data</h2><a href="#" onclick="showView('akun_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Daftar Akun</a><a href="#" onclick="showView('vendor_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Vendor</a><a href="#" onclick="showView('pelanggan_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Pelanggan</a></div>
+                <div class="pt-3"><h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Transaksi</h2><a href="#" onclick="showView('jurnal_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Entri Jurnal Umum</a><a href="#" onclick="showView('faktur_pembelian_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Faktur Pembelian (AP)</a><a href="#" onclick="showView('pembayaran_hutang_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Pembayaran Hutang (AP)</a><a href="#" onclick="showView('faktur_penjualan_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Faktur Penjualan (AR)</a><a href="#" onclick="showView('penerimaan_piutang_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Penerimaan Piutang (AR)</a></div>
+                <div class="pt-3"><h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Aset Tetap</h2><a href="#" onclick="showView('aset_tetap_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Daftar Aset Tetap</a><a href="#" onclick="showView('log_depresiasi_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Log Depresiasi</a></div>
+                <div class="pt-3"><h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Pengaturan</h2><a href="#" onclick="showView('pengguna_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Pengguna</a></div>
+            </nav>
+        </aside>
+
+        <main id="mainContent" class="flex-1 ml-64 overflow-y-auto bg-dashboard-main">
+            <div id="viewContainer" class="relative p-8 lg:p-10 min-h-[calc(100vh-100px)]"></div>
+            <footer class="text-center text-sm text-blue-dark opacity-70 p-8 lg:p-10">© <span id="currentYear"></span> ERP FibraWerjo. Semua Hak Dilindungi.</footer>
+        </main>
+    </div>
+
+    <div id="deleteConfirmationModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden items-center justify-center z-50"><div class="relative mx-auto p-5 border w-full max-w-md shadow-lg rounded-card bg-white"><div class="mt-3 text-center"><div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100"><svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div><h3 id="deleteModalTitle" class="text-lg leading-6 font-medium text-gray-900 mt-2">Hapus Data</h3><div class="mt-2 px-7 py-3"><p id="deleteModalMessage" class="text-sm text-gray-500 font-pontano">Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat diurungkan.</p></div><div class="items-center px-4 py-3 space-x-4"><button id="cancelDeleteButton" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-button hover:bg-gray-300 text-sm font-medium">Batal</button><button id="confirmDeleteButton" class="px-4 py-2 bg-red-600 text-white rounded-button hover:bg-red-700 text-sm font-medium">Ya, Hapus</button></div></div></div></div>
+    <template id="journalLineTemplate"><!-- ... --></template>
+    <template id="invoiceLineTemplate"><!-- ... --></template>
+
+    <script>
+    // --- KONFIGURASI & UTILITIES ---
+    const API_BASE_URL = 'http://localhost:5000/api';
+    let currentDeleteInfo = null;
+    const formatDate = d => d ? new Date(d).toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'}) : '-';
+    const formatCurrency = n => `Rp ${n.toLocaleString('id-ID')}`;
+    const showNotification = (msg,type='success')=>{const el=document.createElement('div');el.textContent=msg;el.className=`fixed top-5 right-5 p-3 rounded-md shadow-lg text-white ${type==='success'?'bg-green-500':'bg-red-500'}`;document.body.appendChild(el);setTimeout(()=>el.remove(),3000)};
+
+    // --- FUNGSI INTI ---
+    async function showView(viewName, activeLink) {
+        const viewContainer = document.getElementById('viewContainer');
+        try {
+            const response = await fetch(`views/${viewName}.html`);
+            if (!response.ok) throw new Error(`Halaman ${viewName}.html tidak ditemukan.`);
+            viewContainer.innerHTML = await response.text();
+            document.querySelectorAll('#sidebarNav .sidebar-link').forEach(link => link.classList.remove('active-module'));
+            if(activeLink) activeLink.classList.add('active-module');
+            if (viewHandlers[viewName]) viewHandlers[viewName]();
+        } catch (error) {
+            viewContainer.innerHTML = `<div class="p-10 text-center text-red-500"><strong>Error:</strong> ${error.message}</div>`;
+        }
+    }
+
+    async function fetchData(endpoint) {
+        const response = await fetch(`${API_BASE_URL}/${endpoint}`);
+        if (!response.ok) throw new Error(`Gagal mengambil data dari ${endpoint}`);
+        return await response.json();
+    }
+
+    async function postData(endpoint, data) {
+        const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.message || 'Gagal menyimpan data');
+        }
+        return await response.json();
+    }
+    
+    async function deleteData(module, id) {
+        const response = await fetch(`${API_BASE_URL}/${module}/${id}`, { method: 'DELETE' });
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.message || 'Gagal menghapus data');
+        }
+        return await response.json();
+    }
+
+    function handleFormSubmit(formId, module, successView) {
+        const form = document.getElementById(formId);
+        if (!form) return;
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            form.querySelectorAll('input[type=checkbox]').forEach(cb => { data[cb.name] = cb.checked; });
+            try {
+                await postData(module, data);
+                showNotification('Data berhasil disimpan!');
+                showView(successView, document.querySelector(`a[onclick*="${successView}"]`));
+            } catch (error) {
+                showNotification(error.message, 'error');
+            }
+        };
+    }
+
+    function renderTable(tbodyId, data, rowTemplate, emptyMsg) {
+        const tbody = document.getElementById(tbodyId);
+        if (!tbody) return;
+        tbody.innerHTML = (data.length === 0) 
+            ? `<tr><td colspan="100%" class="text-center p-4 text-gray-500">${emptyMsg}</td></tr>`
+            : data.map(rowTemplate).join('');
+    }
+
+    // --- VIEW HANDLERS ---
+    const viewHandlers = {
+        'dashboard': () => {},
+        'vendor_list': async () => {
+            const vendors = await fetchData('vendors');
+            renderTable('tabelVendorBody', vendors, v => `
+                <tr>
+                    <td class="px-6 py-4">${v.vendorCode || '-'}</td>
+                    <td class="px-6 py-4">${v.vendorName}</td>
+                    <td class="px-6 py-4">${v.contactPerson || '-'}</td>
+                    <td class="px-6 py-4">${v.email || '-'}</td>
+                    <td class="px-6 py-4">${v.phone || '-'}</td>
+                    <td class="px-6 py-4">
+                        <button onclick="openDeleteModal('vendors', '${v._id}', 'vendor_list')" class="action-link-delete hover:underline">Hapus</button>
+                    </td>
+                </tr>`, 'Belum ada data vendor.');
+        },
+        'vendor_form': () => handleFormSubmit('vendorForm', 'vendors', 'vendor_list'),
+        
+        'pelanggan_list': async () => {
+            const customers = await fetchData('customers');
+            renderTable('tabelPelangganBody', customers, c => `
+                <tr>
+                    <td class="px-6 py-4">${c.customerCode || '-'}</td>
+                    <td class="px-6 py-4">${c.customerName}</td>
+                    <td class="px-6 py-4">${c.email || '-'}</td>
+                    <td class="px-6 py-4">${c.phone || '-'}</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full status-badge-${c.isActive ? 'active' : 'inactive'}">${c.isActive ? 'Aktif' : 'Nonaktif'}</span></td>
+                    <td class="px-6 py-4">
+                        <button onclick="openDeleteModal('customers', '${c._id}', 'pelanggan_list')" class="action-link-delete hover:underline">Hapus</button>
+                    </td>
+                </tr>`, 'Belum ada data pelanggan.');
+        },
+        'pelanggan_form': () => handleFormSubmit('pelangganForm', 'customers', 'pelanggan_list'),
+        // ... handler untuk fitur lain akan ditambahkan di sini
+    };
+
+    // --- MODAL LOGIC & APP START ---
+    function openDeleteModal(module, id, refreshView) {
+        currentDeleteInfo = { module, id, refreshView };
+        document.getElementById('deleteConfirmationModal').classList.remove('hidden');
+        document.getElementById('deleteConfirmationModal').classList.add('flex');
+    }
+    const closeDeleteModal = () => {
+        document.getElementById('deleteConfirmationModal').classList.add('hidden');
+        currentDeleteInfo = null;
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        document.getElementById('cancelDeleteButton').addEventListener('click', closeDeleteModal);
+        
+        document.getElementById('confirmDeleteButton').addEventListener('click', async () => {
+            if (!currentDeleteInfo) return;
+            const { module, id, refreshView } = currentDeleteInfo;
+            try {
+                await deleteData(module, id);
+                showNotification('Data berhasil dihapus.');
+                showView(refreshView, document.querySelector(`a[onclick*="${refreshView}"]`));
+            } catch (error) {
+                showNotification(error.message, 'error');
+            } finally {
+                closeDeleteModal();
+            }
+        });
+        
+        showView('dashboard', document.querySelector('#sidebarNav a'));
+    });
+    </script>
+</body>
+</html>

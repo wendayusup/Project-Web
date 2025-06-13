@@ -1,0 +1,55 @@
+<header class="mb-10">
+    <h2 id="akunFormTitle" class="text-3xl md:text-4xl font-semibold text-brand-black">Tambah Akun Baru</h2>
+    <p id="akunFormSubtitle" class="text-blue-dark opacity-80 font-pontano mt-1 text-sm md:text-base">Isi detail akun di bawah ini.</p>
+</header>
+<div class="bg-white p-6 md:p-8 rounded-card shadow-xl max-w-2xl mx-auto">
+    <form id="akunForm" class="space-y-6">
+        <div>
+            <label for="account_code" class="block text-sm font-medium text-blue-dark">Kode Akun</label>
+            <input type="text" name="account_code" id="account_code" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm focus:outline-none focus:ring-blue-medium focus:border-blue-medium sm:text-sm data-cell" placeholder="Contoh: 1101">
+        </div>
+        <div>
+            <label for="account_name" class="block text-sm font-medium text-blue-dark">Nama Akun</label>
+            <input type="text" name="account_name" id="account_name" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm focus:outline-none focus:ring-blue-medium focus:border-blue-medium sm:text-sm data-cell" placeholder="Contoh: Kas di Bank">
+        </div>
+        <div>
+            <label for="account_type" class="block text-sm font-medium text-blue-dark">Tipe Akun</label>
+            <select id="account_type" name="account_type" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm focus:outline-none focus:ring-blue-medium focus:border-blue-medium sm:text-sm data-cell-dimmed">
+                <option value="">Pilih Tipe Akun...</option>
+                <option value="Aset">Aset</option>
+                <option value="Liabilitas">Liabilitas</option>
+                <option value="Ekuitas">Ekuitas</option>
+                <option value="Pendapatan">Pendapatan</option>
+                <option value="Harga Pokok Penjualan">Harga Pokok Penjualan</option>
+                <option value="Beban">Beban</option>
+            </select>
+        </div>
+        <div>
+            <label for="parent_id" class="block text-sm font-medium text-blue-dark">Akun Induk (Opsional)</label>
+            <select id="parent_id" name="parent_id" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm focus:outline-none focus:ring-blue-medium focus:border-blue-medium sm:text-sm data-cell-dimmed">
+                <option value="">Tidak Ada</option>
+                <!-- Opsi akun lain akan ditambahkan oleh JavaScript -->
+            </select>
+        </div>
+        <div>
+            <label for="balance_type" class="block text-sm font-medium text-blue-dark">Saldo Normal</label>
+            <select id="balance_type" name="balance_type" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm focus:outline-none focus:ring-blue-medium focus:border-blue-medium sm:text-sm data-cell-dimmed">
+                <option value="">Pilih Saldo Normal...</option>
+                <option value="Debit">Debit</option>
+                <option value="Kredit">Kredit</option>
+            </select>
+        </div>
+        <div>
+            <label for="description_akun" class="block text-sm font-medium text-blue-dark">Deskripsi (Opsional)</label>
+            <textarea id="description_akun" name="description_akun" rows="3" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm focus:outline-none focus:ring-blue-medium focus:border-blue-medium sm:text-sm data-cell-dimmed" placeholder="Deskripsi singkat mengenai akun ini..."></textarea>
+        </div>
+        <div class="flex items-center">
+            <input id="is_active_akun" name="is_active_akun" type="checkbox" class="h-4 w-4 text-blue-medium border-gray-300 rounded-input focus:ring-blue-medium" checked>
+            <label for="is_active_akun" class="ml-2 block text-sm text-blue-dark font-pontano">Akun Aktif</label>
+        </div>
+        <div class="flex justify-end space-x-3 pt-4">
+            <button type="button" onclick="showView('akun_list')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 px-5 rounded-button transition duration-150 text-sm">Batal</button>
+            <button type="submit" class="bg-blue-medium hover:bg-blue-medium-darker text-white font-semibold py-2.5 px-5 rounded-button shadow-md hover:shadow-lg transition duration-150 text-sm">Simpan Akun</button>
+        </div>
+    </form>
+</div>

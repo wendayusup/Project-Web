@@ -1,0 +1,52 @@
+<header class="mb-10">
+    <h2 id="pembayaranHutangFormTitle" class="text-3xl md:text-4xl font-semibold text-brand-black">Buat Pembayaran Hutang</h2>
+    <p id="pembayaranHutangFormSubtitle" class="text-blue-dark opacity-80 font-pontano mt-1 text-sm md:text-base">Masukkan detail pembayaran.</p>
+</header>
+<div class="bg-white p-6 md:p-8 rounded-card shadow-xl max-w-2xl mx-auto">
+    <form id="pembayaranHutangForm" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label for="payment_number_ap" class="block text-sm font-medium text-blue-dark">No. Pembayaran</label>
+                <input type="text" name="payment_number_ap" id="payment_number_ap" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell" placeholder="Otomatis atau PAY/AP/001">
+            </div>
+            <div>
+                <label for="payment_date_ap" class="block text-sm font-medium text-blue-dark">Tanggal Pembayaran</label>
+                <input type="date" name="payment_date_ap" id="payment_date_ap" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed">
+            </div>
+        </div>
+        <div>
+            <label for="payment_vendor_id_ap" class="block text-sm font-medium text-blue-dark">Vendor</label>
+            <select id="payment_vendor_id_ap" name="payment_vendor_id_ap" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm data-cell-dimmed">
+                <option value="">Pilih Vendor...</option>
+                 <!-- Opsi akan diisi oleh JavaScript -->
+            </select>
+        </div>
+        <div>
+            <label for="payment_invoice_ref_ap" class="block text-sm font-medium text-blue-dark">No. Faktur Referensi</label>
+            <input type="text" name="payment_invoice_ref_ap" id="payment_invoice_ref_ap" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed" placeholder="No. Faktur yang dibayar">
+        </div>
+        <div>
+            <label for="payment_amount_ap" class="block text-sm font-medium text-blue-dark">Jumlah Dibayar</label>
+            <input type="number" name="payment_amount_ap" id="payment_amount_ap" required min="0" step="any" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed text-right" placeholder="0">
+        </div>
+        <div>
+            <label for="payment_account_id_ap" class="block text-sm font-medium text-blue-dark">Akun Kas/Bank</label>
+            <select id="payment_account_id_ap" name="payment_account_id_ap" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm data-cell-dimmed">
+                <option value="">Pilih Akun Kas/Bank...</option>
+                 <!-- Opsi akan diisi oleh JavaScript -->
+            </select>
+        </div>
+        <div>
+            <label for="payment_method_ap" class="block text-sm font-medium text-blue-dark">Metode Pembayaran</label>
+            <input type="text" name="payment_method_ap" id="payment_method_ap" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed" placeholder="Transfer Bank, Tunai, dll.">
+        </div>
+        <div>
+            <label for="payment_notes_ap" class="block text-sm font-medium text-blue-dark">Catatan (Opsional)</label>
+            <textarea id="payment_notes_ap" name="payment_notes_ap" rows="2" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed" placeholder="Catatan tambahan..."></textarea>
+        </div>
+        <div class="flex justify-end space-x-3 pt-6">
+            <button type="button" onclick="showView('pembayaran_hutang_list')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 px-5 rounded-button">Batal</button>
+            <button type="submit" class="bg-blue-medium hover:bg-blue-medium-darker text-white font-semibold py-2.5 px-5 rounded-button shadow-md">Simpan Pembayaran</button>
+        </div>
+    </form>
+</div>

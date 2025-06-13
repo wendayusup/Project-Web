@@ -1,0 +1,115 @@
+<!-- Header Dashboard -->
+<div class="bg-white shadow-md flex justify-between items-center px-6 py-4 h-[87px]">
+    <h2 class="font-uni-neue text-3xl font-bold text-dashboard-black">DASHBOARD</h2>
+    <div class="flex items-center space-x-4">
+        <button class="p-2 bg-dashboard-icon-bg rounded-widget">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+        </button>
+        <button class="p-2 bg-dashboard-icon-bg rounded-widget">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </button>
+        <button class="p-2 bg-dashboard-icon-bg rounded-widget">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" /></svg>
+        </button>
+    </div>
+</div>
+
+<!-- Konten Utama Dashboard -->
+<div class="p-6 flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
+    <!-- Kolom Kiri -->
+    <div class="flex-grow space-y-6">
+        <!-- Kartu Statistik -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-dashboard-widget p-5 rounded-widget shadow-dashboard-widget">
+                <p class="font-uni-neue text-dashboard-gray text-lg">Total Balance</p>
+                <p class="font-uni-neue text-dashboard-dark text-3xl font-bold">Rp 1.250.000.000</p>
+            </div>
+            <div class="bg-dashboard-widget p-5 rounded-widget shadow-dashboard-widget">
+                <p class="font-uni-neue text-dashboard-gray text-lg">Total Spending</p>
+                <p class="font-uni-neue text-dashboard-dark text-3xl font-bold">Rp 42.043.000</p>
+            </div>
+            <div class="bg-dashboard-widget p-5 rounded-widget shadow-dashboard-widget">
+                <p class="font-uni-neue text-dashboard-gray text-lg">Money Saved</p>
+                <p class="font-uni-neue text-dashboard-dark text-3xl font-bold">Rp 5.150.000</p>
+            </div>
+        </div>
+
+        <!-- Grafik Overview -->
+        <div class="bg-dashboard-widget p-6 rounded-widget shadow-dashboard-widget min-h-[425px]">
+            <h3 class="font-uni-neue text-xl font-bold text-dashboard-black mb-6">Overview</h3>
+            <div class="flex h-[280px] items-end space-x-3 md:space-x-4 overflow-x-auto relative">
+                <!-- Garis Latar Belakang -->
+                <div class="absolute inset-0 flex justify-between px-2">
+                    <div class="chart-dashed-line opacity-50"></div> <div class="chart-dashed-line opacity-50"></div> <div class="chart-dashed-line opacity-50"></div> <div class="chart-dashed-line opacity-50"></div> <div class="chart-dashed-line opacity-50"></div> <div class="chart-dashed-line opacity-50"></div> <div class="chart-dashed-line opacity-50"></div> <div class="chart-dashed-line opacity-50"></div> <div class="chart-dashed-line opacity-50"></div> <div class="chart-dashed-line opacity-50"></div> <div class="chart-dashed-line opacity-50"></div>
+                </div>
+                <!-- Bar Chart -->
+                <div class="flex h-full items-end space-x-3 md:space-x-4 z-10 relative">
+                    <div class="text-center w-6 md:w-8"><div class="bg-dashboard-bar-gray rounded-t-md" style="height: 60%;"></div><p class="text-xs mt-1 font-uni-neue">Jan</p></div>
+                    <div class="text-center w-6 md:w-8"><div class="bg-dashboard-bar-gray rounded-t-md" style="height: 78%;"></div><p class="text-xs mt-1 font-uni-neue">Feb</p></div>
+                    <div class="text-center w-6 md:w-8"><div class="bg-dashboard-bar-gray rounded-t-md" style="height: 27%;"></div><p class="text-xs mt-1 font-uni-neue">Mar</p></div>
+                    <div class="text-center w-6 md:w-8"><div class="bg-dashboard-bar-gray rounded-t-md" style="height: 92%;"></div><p class="text-xs mt-1 font-uni-neue">Apr</p></div>
+                    <div class="text-center w-6 md:w-8"><div class="bg-dashboard-bar-gray rounded-t-md" style="height: 54%;"></div><p class="text-xs mt-1 font-uni-neue">May</p></div>
+                    <div class="text-center w-6 md:w-8"><div class="bg-dashboard-bar-gray rounded-t-md" style="height: 72%;"></div><p class="text-xs mt-1 font-uni-neue">Jun</p></div>
+                    <div class="text-center w-6 md:w-8"><div class="bg-dashboard-bar-gray rounded-t-md" style="height: 84%;"></div><p class="text-xs mt-1 font-uni-neue">Jul</p></div>
+                    <div class="text-center w-6 md:w-8"><div class="bg-dashboard-bar-gray rounded-t-md" style="height: 24%;"></div><p class="text-xs mt-1 font-uni-neue">Aug</p></div>
+                    <div class="text-center w-6 md:w-8 relative"><div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-cream text-blue-dark text-xs px-2 py-1 rounded-md shadow-lg whitespace-nowrap font-uni-neue">From 766 $</div><div class="bg-cream rounded-t-md" style="height: 48%;"></div><p class="text-xs mt-1 font-uni-neue">Sep</p></div>
+                    <div class="text-center w-6 md:w-8"><div class="bg-dashboard-bar-gray rounded-t-md" style="height: 65%;"></div><p class="text-xs mt-1 font-uni-neue">Oct</p></div>
+                    <div class="text-center w-6 md:w-8"><div class="bg-dashboard-bar-gray rounded-t-md" style="height: 42%;"></div><p class="text-xs mt-1 font-uni-neue">Nov</p></div>
+                    <div class="text-center w-6 md:w-8"><div class="bg-dashboard-bar-gray rounded-t-md" style="height: 78%;"></div><p class="text-xs mt-1 font-uni-neue">Dec</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Riwayat Transaksi -->
+        <div class="bg-dashboard-widget p-6 rounded-widget shadow-dashboard-widget min-h-[300px]">
+            <h3 class="font-uni-neue text-xl font-bold text-dashboard-black mb-4">Transaction History</h3>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                    <div>
+                        <p class="font-uni-neue font-bold text-dashboard-black">Dianne Russell</p>
+                        <p class="font-uni-neue text-xs text-dashboard-history-gray">Jan 2, 2022</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-uni-neue font-bold text-dashboard-black">Online Payment</p>
+                        <p class="font-uni-neue text-xs text-dashboard-green-status">Done</p>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center py-2">
+                    <div>
+                        <p class="font-uni-neue font-bold text-dashboard-black">Eleanor Pena</p>
+                        <p class="font-uni-neue text-xs text-dashboard-history-gray">Jan 2, 2022</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-uni-neue font-bold text-dashboard-black">Online Payment</p>
+                        <p class="font-uni-neue text-xs text-dashboard-green-status">Done</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Kolom Kanan -->
+    <div class="w-full lg:w-1/3 xl:w-1/4 bg-dashboard-widget p-6 rounded-widget shadow-dashboard-widget space-y-8 hidden md:block">
+        <div>
+            <h3 class="font-uni-neue text-xl font-bold text-dashboard-black mb-6">Activity</h3>
+            <div class="relative flex justify-center items-center h-64">
+                <div class="absolute bg-cream rounded-full w-40 h-40 flex flex-col justify-center items-center"><p class="font-uni-neue text-2xl font-bold text-dashboard-black">$3.20</p><p class="font-uni-neue text-dashboard-black">Online Shop</p></div>
+                <div class="absolute bg-gray-50 rounded-full w-32 h-32 flex flex-col justify-center items-center" style="left: 10%; top: 50%;"><p class="font-uni-neue text-xl font-bold text-dashboard-black">$1.20</p><p class="font-uni-neue text-sm text-dashboard-black">Taxi</p></div>
+                <div class="absolute bg-dashboard-progress-food rounded-full w-24 h-24 flex flex-col justify-center items-center" style="right: 15%; top: 60%;"><p class="font-uni-neue text-xl font-bold text-dashboard-food">$0.20</p><p class="font-uni-neue text-dashboard-food">Food</p></div>
+            </div>
+        </div>
+        <div>
+            <h3 class="font-uni-neue text-lg font-bold text-dashboard-black mb-4">Comparison (Month)</h3>
+            <div class="space-y-3">
+                <div>
+                    <p class="font-uni-neue text-sm text-dashboard-light-gray mb-1">This Month</p>
+                    <div class="w-full bg-dashboard-progress-empty rounded-full h-2.5"><div class="bg-cream h-2.5 rounded-full" style="width: 45%"></div></div>
+                </div>
+                <div>
+                    <p class="font-uni-neue text-sm text-dashboard-light-gray mb-1">Last Month</p>
+                    <div class="w-full bg-dashboard-progress-empty rounded-full h-2.5"><div class="bg-dashboard-progress-food h-2.5 rounded-full" style="width: 75%"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

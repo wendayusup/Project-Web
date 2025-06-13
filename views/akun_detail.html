@@ -1,0 +1,50 @@
+<header class="flex flex-col sm:flex-row justify-between sm:items-center mb-10">
+    <div>
+        <h2 id="akunDetailTitle" class="text-3xl md:text-4xl font-semibold text-brand-black">Detail Akun</h2>
+        <p class="text-blue-dark opacity-80 font-pontano mt-1 text-sm md:text-base">Informasi lengkap mengenai akun.</p>
+    </div>
+    <div>
+        <button onclick="showView('akun_form', this, currentEditingId);" class="bg-blue-medium hover:bg-blue-medium-darker text-white font-semibold py-2.5 px-5 rounded-button shadow-md hover:shadow-lg transition duration-150 text-sm mr-3">Edit Akun</button>
+        <button type="button" onclick="showView('akun_list')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 px-5 rounded-button transition duration-150 text-sm">Kembali ke Daftar</button>
+    </div>
+</header>
+<div class="bg-white p-6 md:p-8 rounded-card shadow-xl">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+        <div>
+            <p class="text-sm font-medium text-blue-dark opacity-70">Kode Akun:</p>
+            <p id="detailAccountCode" class="text-lg data-cell font-semibold">Memuat...</p>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-blue-dark opacity-70">Nama Akun:</p>
+            <p id="detailAccountNameValue" class="text-lg data-cell font-semibold">Memuat...</p>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-blue-dark opacity-70">Tipe Akun:</p>
+            <p id="detailAccountType" class="text-lg data-cell-dimmed">Memuat...</p>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-blue-dark opacity-70">Saldo Normal:</p>
+            <p id="detailBalanceType" class="text-lg data-cell-dimmed">Memuat...</p>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-blue-dark opacity-70">Akun Induk:</p>
+            <p id="detailParentAccount" class="text-lg data-cell-dimmed">Memuat...</p>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-blue-dark opacity-70">Status:</p>
+            <p id="detailIsActive" class="text-lg data-cell-dimmed">Memuat...</p>
+        </div>
+        <div class="md:col-span-2">
+            <p class="text-sm font-medium text-blue-dark opacity-70">Deskripsi:</p>
+            <p id="detailDescriptionAkun" class="text-lg data-cell-dimmed">Memuat...</p>
+        </div>
+        <div class="md:col-span-2 border-t border-gray-200 pt-4 mt-4">
+            <p class="text-sm font-medium text-blue-dark opacity-70">Dibuat Pada:</p>
+            <p id="detailCreatedAt" class="text-lg data-cell-dimmed">Memuat...</p>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-blue-dark opacity-70">Diperbarui Pada:</p>
+            <p id="detailUpdatedAt" class="text-lg data-cell-dimmed">Memuat...</p>
+        </div>
+    </div>
+</div>

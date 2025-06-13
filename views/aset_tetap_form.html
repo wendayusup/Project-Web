@@ -1,0 +1,89 @@
+<header class="mb-10">
+    <h2 id="asetTetapFormTitle" class="text-3xl md:text-4xl font-semibold text-brand-black">Tambah Aset Tetap</h2>
+    <p id="asetTetapFormSubtitle" class="text-blue-dark opacity-80 font-pontano mt-1 text-sm md:text-base">Masukkan detail aset tetap.</p>
+</header>
+<div class="bg-white p-6 md:p-8 rounded-card shadow-xl max-w-3xl mx-auto">
+    <form id="asetTetapForm" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label for="asset_code" class="block text-sm font-medium text-blue-dark">Kode Aset</label>
+                <input type="text" name="asset_code" id="asset_code" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell" placeholder="Contoh: AST-001">
+            </div>
+            <div>
+                <label for="asset_name" class="block text-sm font-medium text-blue-dark">Nama Aset</label>
+                <input type="text" name="asset_name" id="asset_name" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell" placeholder="Contoh: Komputer Kantor">
+            </div>
+            <div>
+                <label for="acquisition_date" class="block text-sm font-medium text-blue-dark">Tanggal Perolehan</label>
+                <input type="date" name="acquisition_date" id="acquisition_date" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed">
+            </div>
+            <div>
+                <label for="acquisition_cost" class="block text-sm font-medium text-blue-dark">Harga Perolehan</label>
+                <input type="number" name="acquisition_cost" id="acquisition_cost" required min="0" step="any" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed text-right" placeholder="0">
+            </div>
+             <div>
+                <label for="asset_quantity" class="block text-sm font-medium text-blue-dark">Kuantitas</label>
+                <input type="number" name="asset_quantity" id="asset_quantity" value="1" min="1" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed text-right" placeholder="1">
+            </div>
+            <div>
+                <label for="asset_location" class="block text-sm font-medium text-blue-dark">Lokasi Aset</label>
+                <input type="text" name="asset_location" id="asset_location" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed" placeholder="Contoh: Kantor Pusat Lt.2">
+            </div>
+        </div>
+        <div class="border-t border-gray-200 pt-6">
+            <h3 class="text-lg font-medium text-blue-dark font-pontano">Detail Akuntansi</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                <div>
+                    <label for="asset_account_id" class="block text-sm font-medium text-blue-dark">Akun Aset</label>
+                    <select id="asset_account_id" name="asset_account_id" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm data-cell-dimmed">
+                        <option value="">Pilih Akun Aset...</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="accum_dep_account_id" class="block text-sm font-medium text-blue-dark">Akun Akum. Depresiasi</label>
+                    <select id="accum_dep_account_id" name="accum_dep_account_id" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm data-cell-dimmed">
+                        <option value="">Pilih Akun Akum. Dep....</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="dep_expense_account_id" class="block text-sm font-medium text-blue-dark">Akun Beban Depresiasi</label>
+                    <select id="dep_expense_account_id" name="dep_expense_account_id" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm data-cell-dimmed">
+                        <option value="">Pilih Akun Beban Dep....</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-200 pt-6">
+             <h3 class="text-lg font-medium text-blue-dark font-pontano">Detail Depresiasi</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                <div>
+                    <label for="depreciation_method" class="block text-sm font-medium text-blue-dark">Metode Depresiasi</label>
+                    <select id="depreciation_method" name="depreciation_method" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm data-cell-dimmed">
+                        <option value="Garis_Lurus">Garis Lurus</option>
+                        <option value="Saldo_Menurun">Saldo Menurun</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="useful_life" class="block text-sm font-medium text-blue-dark">Umur Ekonomis (Tahun)</label>
+                    <input type="number" name="useful_life" id="useful_life" required min="0" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed text-right" placeholder="0">
+                </div>
+                <div>
+                    <label for="salvage_value" class="block text-sm font-medium text-blue-dark">Nilai Residu</label>
+                    <input type="number" name="salvage_value" id="salvage_value" value="0" min="0" step="any" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed text-right" placeholder="0">
+                </div>
+            </div>
+        </div>
+        <div>
+            <label for="asset_status" class="block text-sm font-medium text-blue-dark">Status Aset</label>
+            <select id="asset_status" name="asset_status" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm data-cell-dimmed">
+                <option value="Aktif">Aktif</option>
+                <option value="Nonaktif">Nonaktif</option>
+                <option value="Dihapus">Dihapus</option>
+            </select>
+        </div>
+        <div class="flex justify-end space-x-3 pt-6">
+            <button type="button" onclick="showView('aset_tetap_list')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 px-5 rounded-button">Batal</button>
+            <button type="submit" class="bg-blue-medium hover:bg-blue-medium-darker text-white font-semibold py-2.5 px-5 rounded-button shadow-md">Simpan Aset</button>
+        </div>
+    </form>
+</div>

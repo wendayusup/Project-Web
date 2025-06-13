@@ -1,0 +1,36 @@
+<header class="mb-10">
+    <h2 id="penggunaFormTitle" class="text-3xl md:text-4xl font-semibold text-brand-black">Tambah Pengguna Baru</h2>
+    <p id="penggunaFormSubtitle" class="text-blue-dark opacity-80 font-pontano mt-1 text-sm md:text-base">Masukkan detail pengguna untuk akses sistem.</p>
+</header>
+<div class="bg-white p-6 md:p-8 rounded-card shadow-xl max-w-2xl mx-auto">
+    <form id="penggunaForm" class="space-y-6">
+        <div>
+            <label for="fullName" class="block text-sm font-medium text-blue-dark">Nama Lengkap</label>
+            <input type="text" name="fullName" id="fullName" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell" placeholder="Nama Lengkap Pengguna">
+        </div>
+        <div>
+            <label for="email" class="block text-sm font-medium text-blue-dark">Email</label>
+            <input type="email" name="email" id="email" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell" placeholder="email@example.com">
+        </div>
+        <div>
+            <label for="password" class="block text-sm font-medium text-blue-dark">Password</label>
+            <input type="password" name="password" id="password" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell" placeholder="Minimal 8 karakter">
+        </div>
+        <div>
+            <label for="role" class="block text-sm font-medium text-blue-dark">Peran</label>
+            <select id="role" name="role" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm data-cell-dimmed">
+                <option value="Staff">Staff</option>
+                <option value="Admin">Admin</option>
+                <option value="Viewer">Viewer</option>
+            </select>
+        </div>
+        <div class="flex items-center">
+            <input id="isActive" name="isActive" type="checkbox" class="h-4 w-4 text-blue-medium border-gray-300 rounded-input" checked>
+            <label for="isActive" class="ml-2 block text-sm text-blue-dark font-pontano">Pengguna Aktif</label>
+        </div>
+        <div class="flex justify-end space-x-3 pt-6">
+            <button type="button" onclick="showView('pengguna_list')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 px-5 rounded-button">Batal</button>
+            <button type="submit" class="bg-blue-medium hover:bg-blue-medium-darker text-white font-semibold py-2.5 px-5 rounded-button shadow-md">Simpan Pengguna</button>
+        </div>
+    </form>
+</div>
