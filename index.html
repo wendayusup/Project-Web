@@ -12,25 +12,31 @@
 </head>
 <body class="bg-cream">
     <div class="flex h-screen">
+        <!-- Sidebar -->
         <aside class="w-64 bg-gold-mustard p-6 space-y-4 fixed h-full overflow-y-auto shadow-xl">
             <h1 class="text-3xl font-semibold sidebar-title text-center mb-8">FibraWerjo</h1>
             <nav class="space-y-1" id="sidebarNav">
                 <a href="#" onclick="showView('dashboard', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Dashboard</a>
                 <div class="pt-3"><h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Master Data</h2><a href="#" onclick="showView('akun_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Daftar Akun</a><a href="#" onclick="showView('vendor_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Vendor</a><a href="#" onclick="showView('pelanggan_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Pelanggan</a></div>
-                <div class="pt-3"><h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Transaksi</h2><a href="#" onclick="showView('jurnal_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Entri Jurnal Umum</a></div>
+                <div class="pt-3"><h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Transaksi</h2><a href="#" onclick="showView('jurnal_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Entri Jurnal Umum</a><a href="#" onclick="showView('faktur_pembelian_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Faktur Pembelian (AP)</a><a href="#" onclick="showView('pembayaran_hutang_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Pembayaran Hutang (AP)</a><a href="#" onclick="showView('faktur_penjualan_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Faktur Penjualan (AR)</a><a href="#" onclick="showView('penerimaan_piutang_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Penerimaan Piutang (AR)</a></div>
+                <div class="pt-3"><h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Aset Tetap</h2><a href="#" onclick="showView('aset_tetap_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Daftar Aset Tetap</a><a href="#" onclick="showView('log_depresiasi_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Log Depresiasi</a></div>
+                <div class="pt-3"><h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Pengaturan</h2><a href="#" onclick="showView('pengguna_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Pengguna</a></div>
             </nav>
         </aside>
 
+        <!-- Main Content -->
         <main id="mainContent" class="flex-1 ml-64 overflow-y-auto bg-dashboard-main">
             <div id="viewContainer" class="relative p-8 lg:p-10 min-h-[calc(100vh-100px)]"></div>
-            <footer class="text-center text-sm text-blue-dark opacity-70 p-8 lg:p-10">© <span id="currentYear"></span> ERP FibraWerjo.</footer>
+            <footer class="text-center text-sm text-blue-dark opacity-70 p-8 lg:p-10">© <span id="currentYear"></span> ERP FibraWerjo. Semua Hak Dilindungi.</footer>
         </main>
     </div>
 
+    <!-- Modal Konfirmasi Hapus -->
     <div id="deleteConfirmationModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden items-center justify-center z-50"><div class="relative mx-auto p-5 border w-full max-w-md shadow-lg rounded-card bg-white"><div class="mt-3 text-center"><div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100"><svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div><h3 id="deleteModalTitle" class="text-lg leading-6 font-medium text-gray-900 mt-2">Hapus Data</h3><div class="mt-2 px-7 py-3"><p id="deleteModalMessage" class="text-sm text-gray-500 font-pontano">Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat diurungkan.</p></div><div class="items-center px-4 py-3 space-x-4"><button id="cancelDeleteButton" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-button hover:bg-gray-300 text-sm font-medium">Batal</button><button id="confirmDeleteButton" class="px-4 py-2 bg-red-600 text-white rounded-button hover:bg-red-700 text-sm font-medium">Ya, Hapus</button></div></div></div></div>
-    <template id="journalLineTemplate"><!-- ... --></template>
-    <template id="invoiceLineTemplate"><!-- ... --></template>
-
+    
+    <!-- TEMPLATES -->
+    <template id="journalLineTemplate"><div class="journal-line-item grid grid-cols-12 gap-x-3 gap-y-2 items-center p-3 border border-gray-200 rounded-lg bg-gray-50/50"><div class="col-span-12 md:col-span-4"><label class="text-xs font-medium text-blue-dark opacity-70">Akun</label><select name="accountId" required class="mt-1 block w-full px-2 py-1.5 border border-gray-300 bg-white rounded-input shadow-sm sm:text-sm data-cell-dimmed"></select></div><div class="col-span-6 md:col-span-2"><label class="text-xs font-medium text-blue-dark opacity-70">Debit</label><input type="number" name="debit" value="0" min="0" step="any" class="debit-input mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-input shadow-sm sm:text-sm text-right data-cell-dimmed"></div><div class="col-span-6 md:col-span-2"><label class="text-xs font-medium text-blue-dark opacity-70">Kredit</label><input type="number" name="kredit" value="0" min="0" step="any" class="kredit-input mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-input shadow-sm sm:text-sm text-right data-cell-dimmed"></div><div class="col-span-10 md:col-span-3"><label class="text-xs font-medium text-blue-dark opacity-70">Deskripsi</label><input type="text" name="line_description" class="mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-input shadow-sm sm:text-sm data-cell-dimmed"></div><div class="col-span-2 md:col-span-1 flex items-end justify-end"><button type="button" class="remove-dynamic-line mt-5 text-red-600 hover:text-red-800 text-xs">Hapus</button></div></div></template>
+    
     <script>
     // --- KONFIGURASI & UTILITIES ---
     const API_BASE_URL = 'http://localhost:5000/api';
@@ -51,7 +57,9 @@
             viewContainer.innerHTML = await response.text();
             document.querySelectorAll('#sidebarNav .sidebar-link').forEach(link => link.classList.remove('active-module'));
             if(activeLink) activeLink.classList.add('active-module');
-            if (viewHandlers[viewName]) viewHandlers[viewName]();
+
+            const handler = viewHandlers[viewName];
+            if (typeof handler === 'function') handler(params);
         } catch (error) {
             viewContainer.innerHTML = `<div class="p-10 text-center text-red-500"><strong>Error:</strong> ${error.message}</div>`;
         }
@@ -114,39 +122,144 @@
     // --- VIEW HANDLERS ---
     const viewHandlers = {
         'dashboard': () => {},
+        'akun_list': async () => {
+             try {
+                const data = await fetchData('accounts');
+                renderTable('tabelAkunBody', data, item => `
+                    <tr>
+                        <td class="px-6 py-4">${item.accountCode}</td>
+                        <td class="px-6 py-4">${item.accountName}</td>
+                        <td class="px-6 py-4">${item.accountType}</td>
+                        <td class="px-6 py-4">${item.balanceType}</td>
+                        <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full status-badge-${item.isActive ? 'active' : 'inactive'}">${item.isActive ? 'Aktif' : 'Nonaktif'}</span></td>
+                        <td class="px-6 py-4"><button onclick="openDeleteModal('accounts', '${item._id}', 'akun_list')" class="action-link-delete hover:underline">Hapus</button></td>
+                    </tr>`, 'Belum ada data akun.');
+            } catch (e) { document.getElementById('tabelAkunBody').innerHTML = `<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal memuat data.</td></tr>`; }
+        },
+        'akun_form': () => handleFormSubmit('akunForm', 'accounts', 'akun_list'),
+        
         'vendor_list': async () => {
-            const vendors = await fetchData('vendors');
-            renderTable('tabelVendorBody', vendors, v => `
-                <tr>
-                    <td class="px-6 py-4">${v.vendorCode || '-'}</td>
-                    <td class="px-6 py-4">${v.vendorName}</td>
-                    <td class="px-6 py-4">${v.contactPerson || '-'}</td>
-                    <td class="px-6 py-4">${v.email || '-'}</td>
-                    <td class="px-6 py-4">${v.phone || '-'}</td>
-                    <td class="px-6 py-4">
-                        <button onclick="openDeleteModal('vendors', '${v._id}', 'vendor_list')" class="action-link-delete hover:underline">Hapus</button>
-                    </td>
-                </tr>`, 'Belum ada data vendor.');
+            try {
+                const data = await fetchData('vendors');
+                renderTable('tabelVendorBody', data, item => `
+                    <tr>
+                        <td class="px-6 py-4">${item.vendorCode || '-'}</td>
+                        <td class="px-6 py-4">${item.vendorName}</td>
+                        <td class="px-6 py-4">${item.contactPerson || '-'}</td>
+                        <td class="px-6 py-4">${item.email || '-'}</td>
+                        <td class="px-6 py-4">${item.phone || '-'}</td>
+                        <td class="px-6 py-4"><button onclick="openDeleteModal('vendors', '${item._id}', 'vendor_list')" class="action-link-delete hover:underline">Hapus</button></td>
+                    </tr>`, 'Belum ada data vendor.');
+            } catch (e) { document.getElementById('tabelVendorBody').innerHTML = `<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal memuat data.</td></tr>`; }
         },
         'vendor_form': () => handleFormSubmit('vendorForm', 'vendors', 'vendor_list'),
         
         'pelanggan_list': async () => {
-            const customers = await fetchData('customers');
-            renderTable('tabelPelangganBody', customers, c => `
-                <tr>
-                    <td class="px-6 py-4">${c.customerCode || '-'}</td>
-                    <td class="px-6 py-4">${c.customerName}</td>
-                    <td class="px-6 py-4">${c.email || '-'}</td>
-                    <td class="px-6 py-4">${c.phone || '-'}</td>
-                    <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full status-badge-${c.isActive ? 'active' : 'inactive'}">${c.isActive ? 'Aktif' : 'Nonaktif'}</span></td>
-                    <td class="px-6 py-4">
-                        <button onclick="openDeleteModal('customers', '${c._id}', 'pelanggan_list')" class="action-link-delete hover:underline">Hapus</button>
-                    </td>
-                </tr>`, 'Belum ada data pelanggan.');
+             try {
+                const data = await fetchData('customers');
+                renderTable('tabelPelangganBody', data, item => `
+                    <tr>
+                        <td class="px-6 py-4">${item.customerCode || '-'}</td>
+                        <td class="px-6 py-4">${item.customerName}</td>
+                        <td class="px-6 py-4">${item.email || '-'}</td>
+                        <td class="px-6 py-4">${item.phone || '-'}</td>
+                        <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full status-badge-${item.isActive ? 'active' : 'inactive'}">${item.isActive ? 'Aktif' : 'Nonaktif'}</span></td>
+                        <td class="px-6 py-4"><button onclick="openDeleteModal('customers', '${item._id}', 'pelanggan_list')" class="action-link-delete hover:underline">Hapus</button></td>
+                    </tr>`, 'Belum ada data pelanggan.');
+            } catch (e) { document.getElementById('tabelPelangganBody').innerHTML = `<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal memuat data.</td></tr>`; }
+        },
+        'pelanggan_form': () => handleFormSubmit('pelangganForm', 'customers', 'pelanggan_list'),
+        
+        'jurnal_list': async () => {
+            try {
+                const data = await fetchData('journals');
+                renderTable('tabelJurnalBody', data, item => {
+                    const total = item.lines.reduce((sum, line) => sum + (line.debit || 0), 0);
+                    return `
+                    <tr>
+                        <td class="px-6 py-4">${item.journalNumber}</td>
+                        <td class="px-6 py-4">${formatDate(item.journalDate)}</td>
+                        <td class="px-6 py-4">${item.description}</td>
+                        <td class="px-6 py-4 text-right">${formatCurrency(total)}</td>
+                        <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full status-badge-${item.status.toLowerCase()}">${item.status}</span></td>
+                        <td class="px-6 py-4"><button onclick="openDeleteModal('journals', '${item._id}', 'jurnal_list')" class="action-link-delete hover:underline">Hapus</button></td>
+                    </tr>`;
+                }, 'Belum ada entri jurnal.');
+            } catch(e) { document.getElementById('tabelJurnalBody').innerHTML = `<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal memuat data.</td></tr>`; }
         },
         
-        'pelanggan_form': () => handleFormSubmit('pelangganForm', 'customers', 'pelanggan_list'),
-        // ... handler untuk fitur lain akan ditambahkan di sini
+        'jurnal_form': async () => {
+            const container = document.getElementById('journalLinesContainer');
+            const addButton = document.getElementById('addJournalLine');
+            const form = document.getElementById('jurnalForm');
+            document.getElementById('journalDate').valueAsDate = new Date();
+
+            let accounts = [];
+            try { accounts = await fetchData('accounts'); } 
+            catch (e) { showNotification('Gagal memuat daftar akun', 'error'); }
+
+            const updateTotals = () => {
+                let totalDebit = 0, totalKredit = 0;
+                container.querySelectorAll('.journal-line-item').forEach(row => {
+                    totalDebit += Number(row.querySelector('[name="debit"]').value) || 0;
+                    totalKredit += Number(row.querySelector('[name="kredit"]').value) || 0;
+                });
+                document.getElementById('totalDebitDisplay').textContent = formatCurrency(totalDebit);
+                document.getElementById('totalKreditDisplay').textContent = formatCurrency(totalKredit);
+                const isUnbalanced = totalDebit.toFixed(2) !== totalKredit.toFixed(2) || totalDebit === 0;
+                document.getElementById('balanceWarning').classList.toggle('hidden', !isUnbalanced);
+                const saveButton = document.getElementById('saveJournalButton');
+                saveButton.disabled = isUnbalanced;
+                saveButton.classList.toggle('opacity-50', isUnbalanced);
+            };
+
+            const addRow = () => {
+                const template = document.getElementById('journalLineTemplate');
+                const clone = template.content.cloneNode(true);
+                const select = clone.querySelector('select');
+                select.innerHTML = '<option value="">Pilih Akun...</option>';
+                accounts.forEach(acc => { const opt=document.createElement('option'); opt.value=acc._id; opt.textContent=`${acc.accountCode} - ${acc.accountName}`; select.appendChild(opt); });
+                clone.querySelector('.remove-dynamic-line').onclick = (e) => { e.target.closest('.journal-line-item').remove(); updateTotals(); };
+                clone.querySelectorAll('input[type=number]').forEach(input => input.oninput = updateTotals);
+                container.appendChild(clone);
+            };
+
+            addButton.onclick = addRow;
+            addRow(); addRow();
+            updateTotals();
+
+            form.onsubmit = async (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const lineRows = container.querySelectorAll('.journal-line-item');
+                const lines = [];
+                lineRows.forEach(row => {
+                    lines.push({
+                        accountId: row.querySelector('[name="accountId"]').value,
+                        debit: Number(row.querySelector('[name="debit"]').value),
+                        kredit: Number(row.querySelector('[name="kredit"]').value),
+                        description: row.querySelector('[name="line_description"]').value
+                    });
+                });
+
+                const mainData = {
+                    journalNumber: formData.get('journalNumber'),
+                    journalDate: formData.get('journalDate'),
+                    description: formData.get('description'),
+                    status: formData.get('status'),
+                    lines: lines
+                };
+                
+                try {
+                    await postData('journals', mainData);
+                    showNotification('Jurnal berhasil disimpan!');
+                    showView('jurnal_list', document.querySelector(`a[onclick*="jurnal_list"]`));
+                } catch (error) {
+                    showNotification(error.message, 'error');
+                }
+            };
+        },
+        // Handler stubs lainnya
     };
 
     // --- MODAL LOGIC & APP START ---
