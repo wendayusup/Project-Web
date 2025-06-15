@@ -1,28 +1,31 @@
 const mongoose = require('mongoose');
 
-// Skema untuk koleksi 'accounts' (Daftar Akun)
 const accountSchema = new mongoose.Schema({
     accountCode: {
         type: String,
-        required: [true, 'Kode Akun wajib diisi'],
-        unique: true // Pastikan setiap kode akun unik
+        required: [true, 'Kode akun wajib diisi.'],
+        unique: true,
+        trim: true
     },
     accountName: {
         type: String,
-        required: [true, 'Nama Akun wajib diisi']
+        required: [true, 'Nama akun wajib diisi.'],
+        trim: true
     },
     accountType: {
         type: String,
-        required: [true, 'Tipe Akun wajib diisi'],
-        enum: ['Aset', 'Liabilitas', 'Ekuitas', 'Pendapatan', 'Beban']
+        required: [true, 'Tipe akun wajib diisi.'],
+        // Menyesuaikan enum dengan opsi yang ada di frontend Anda
+        enum: ['Aset', 'Liabilitas', 'Ekuitas', 'Pendapatan', 'Beban'] 
     },
     balanceType: {
         type: String,
-        required: [true, 'Saldo Normal wajib diisi'],
+        required: [true, 'Saldo normal wajib diisi.'],
         enum: ['Debit', 'Kredit']
     },
     description: {
         type: String,
+        trim: true,
         default: ''
     },
     isActive: {
@@ -30,7 +33,7 @@ const accountSchema = new mongoose.Schema({
         default: true
     }
 }, {
-    timestamps: true
+    timestamps: true 
 });
 
 module.exports = mongoose.model('Account', accountSchema);

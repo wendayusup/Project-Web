@@ -43,6 +43,7 @@
     let currentDeleteInfo = null;
     let currentEditingId = null;
     const formatDate = d => d ? new Date(d).toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'}) : '-';
+    const formatISODate = d => d ? new Date(d).toISOString().split('T')[0] : '';
     const formatCurrency = n => `Rp ${Number(n).toLocaleString('id-ID')}`;
     const showNotification = (msg,type='success')=>{const el=document.createElement('div');el.textContent=msg;el.className=`fixed top-5 right-5 p-3 rounded-md shadow-lg text-white ${type==='success'?'bg-green-500':'bg-red-500'}`;document.body.appendChild(el);setTimeout(()=>el.remove(),3000)};
 
@@ -71,9 +72,10 @@
         return await response.json();
     }
 
-    async function postData(endpoint, data) {
-        const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
-            method: 'POST',
+    async function postData(endpoint, data, method = 'POST') {
+        const url = method === 'PUT' ? `${API_BASE_URL}/${endpoint}/${currentEditingId}` : `${API_BASE_URL}/${endpoint}`;
+        const response = await fetch(url, {
+            method: method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
         });
@@ -256,9 +258,56 @@
                 }
             };
         },
+
+        // --- ASET TETAP (Implementasi baru) ---
+        'aset_tetap_list': async () => {
+            try {
+                const data = await fetchData('fixed-assets');
+                renderTable('tabelAsetBody', data, item => `
+                    <tr class="data-cell">
+                        <td class="px-6 py-4">${item.assetCode}</td>
+                        <td class="px-6 py-4">${item.assetName}</td>
+                        <td class="px-6 py-4">${formatDate(item.acquisitionDate)}</td>
+                        <td class="px-6 py-4 text-right">${formatCurrency(item.acquisitionCost)}</td>
+                        <td class="px-6 py-4">${item.depreciationMethod}</td>
+                        <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full status-badge-${item.status}">${item.status}</span></td>
+                        <td class="px-6 py-4"><button onclick="openDeleteModal('fixed-assets', '${item._id}', 'aset_tetap_list')" class="action-link-delete hover:underline">Hapus</button></td>
+                    </tr>`, 'Belum ada data aset tetap.');
+            } catch (e) { document.getElementById('tabelAsetBody').innerHTML = `<tr><td colspan="7" class="text-center p-4 text-red-500">Gagal memuat data aset.</td></tr>`; }
+        },
+        'aset_tetap_form': async () => {
+            const form = document.getElementById('asset-form');
+            if(!form) return;
+            try {
+                const accounts = await fetchData('accounts');
+                const selects = ['assetAccountId', 'accumDepAccountId', 'depExpenseAccountId'];
+                selects.forEach(selectId => {
+                    const select = document.getElementById(selectId);
+                    if(select){
+                        select.innerHTML = '<option value="">Pilih Akun...</option>';
+                        accounts.forEach(acc => {
+                            select.innerHTML += `<option value="${acc._id}">${acc.accountCode} - ${acc.accountName}</option>`;
+                        });
+                    }
+                });
+            } catch(e) { showNotification('Gagal memuat daftar akun', 'error'); }
+            
+            form.onsubmit = async (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+                try {
+                    await postData('fixed-assets', data);
+                    showNotification('Aset tetap berhasil disimpan!');
+                    showView('aset_tetap_list', document.querySelector(`a[onclick*="aset_tetap_list"]`));
+                } catch (error) {
+                    showNotification(error.message, 'error');
+                }
+            };
+        },
         
-        // Handler stubs untuk fitur lain agar tidak error
-        'faktur_pembelian_list': () => {}, 'faktur_pembelian_form': () => {}, 'pembayaran_hutang_list': () => {}, 'pembayaran_hutang_form': () => {}, 'faktur_penjualan_list': () => {}, 'faktur_penjualan_form': () => {}, 'penerimaan_piutang_list': () => {}, 'penerimaan_piutang_form': () => {}, 'aset_tetap_list': () => {}, 'aset_tetap_form': () => {}, 'log_depresiasi_list': () => {}, 'pengguna_list': () => {}, 'pengguna_form': () => {}
+        // --- STUBS LAINNYA ---
+        'faktur_pembelian_list': () => {}, 'faktur_pembelian_form': () => {}, 'pembayaran_hutang_list': () => {}, 'pembayaran_hutang_form': () => {}, 'faktur_penjualan_list': () => {}, 'faktur_penjualan_form': () => {}, 'penerimaan_piutang_list': () => {}, 'penerimaan_piutang_form': () => {}, 'log_depresiasi_list': () => {}, 'pengguna_list': () => {}, 'pengguna_form': () => {}
     };
 
     // --- MODAL LOGIC & APP START ---
