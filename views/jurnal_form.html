@@ -1,3 +1,5 @@
+
+<!-- FILE: views/jurnal_form.html -->
 <header class="mb-10">
     <h2 id="jurnalFormTitle" class="text-3xl md:text-4xl font-semibold text-brand-black">Buat Entri Jurnal Baru</h2>
     <p id="jurnalFormSubtitle" class="text-blue-dark opacity-80 font-pontano mt-1 text-sm md:text-base">Masukkan detail entri jurnal di bawah ini.</p>
@@ -6,30 +8,26 @@
     <form id="jurnalForm" class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <label for="entry_number_jurnal" class="block text-sm font-medium text-blue-dark">Nomor Jurnal</label>
-                <input type="text" name="entry_number_jurnal" id="entry_number_jurnal" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm focus:outline-none focus:ring-blue-medium focus:border-blue-medium sm:text-sm data-cell" placeholder="Otomatis atau JE-YYYY-XXXX">
+                <label for="journalNumber" class="block text-sm font-medium text-blue-dark">Nomor Jurnal</label>
+                <input type="text" name="journalNumber" id="journalNumber" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell" placeholder="Contoh: JE-2025-001">
             </div>
             <div>
-                <label for="date_jurnal" class="block text-sm font-medium text-blue-dark">Tanggal Jurnal</label>
-                <input type="date" name="date_jurnal" id="date_jurnal" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm focus:outline-none focus:ring-blue-medium focus:border-blue-medium sm:text-sm data-cell-dimmed">
+                <label for="journalDate" class="block text-sm font-medium text-blue-dark">Tanggal Jurnal</label>
+                <input type="date" name="journalDate" id="journalDate" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed">
             </div>
         </div>
         <div>
-            <label for="description_jurnal" class="block text-sm font-medium text-blue-dark">Deskripsi Jurnal</label>
-            <textarea id="description_jurnal" name="description_jurnal" rows="2" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm focus:outline-none focus:ring-blue-medium focus:border-blue-medium sm:text-sm data-cell-dimmed" placeholder="Deskripsi singkat transaksi..."></textarea>
+            <label for="description" class="block text-sm font-medium text-blue-dark">Deskripsi Jurnal</label>
+            <textarea id="description" name="description" rows="2" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed" placeholder="Deskripsi singkat transaksi..."></textarea>
         </div>
         
-        <!-- Detail Jurnal Dinamis -->
-        <div class="space-y-4">
-            <h3 class="text-lg font-medium text-blue-dark border-b border-gray-200 pb-2 font-pontano">Detail Jurnal (Debit/Kredit)</h3>
-            <div id="journalLinesContainer" class="space-y-3">
-                <!-- Baris jurnal akan ditambahkan di sini oleh JavaScript -->
-            </div>
-            <button type="button" id="addJournalLine" class="text-sm bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-3 rounded-button shadow-sm transition duration-150">+ Tambah Baris</button>
+        <div class="space-y-4 pt-4 border-t">
+            <h3 class="text-lg font-medium text-blue-dark font-pontano">Detail Jurnal (Debit/Kredit)</h3>
+            <div id="journalLinesContainer" class="space-y-3"></div>
+            <button type="button" id="addJournalLine" class="text-sm bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-3 rounded-button shadow-sm">+ Tambah Baris</button>
         </div>
         
-        <!-- Total & Peringatan -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-200">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t">
             <div>
                 <label class="block text-sm font-medium text-blue-dark">Total Debit</label>
                 <p id="totalDebitDisplay" class="mt-1 text-lg font-semibold data-cell">Rp 0</p>
@@ -44,16 +42,16 @@
         </div>
 
         <div>
-            <label for="status_jurnal" class="block text-sm font-medium text-blue-dark">Status Jurnal</label>
-            <select id="status_jurnal" name="status_jurnal" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm focus:outline-none focus:ring-blue-medium focus:border-blue-medium sm:text-sm data-cell-dimmed">
+            <label for="status" class="block text-sm font-medium text-blue-dark">Status Jurnal</label>
+            <select id="status" name="status" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm data-cell-dimmed">
                 <option value="Draft">Draft</option>
                 <option value="Posted">Posted</option>
             </select>
         </div>
 
         <div class="flex justify-end space-x-3 pt-6">
-            <button type="button" onclick="showView('jurnal_list')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 px-5 rounded-button transition duration-150 text-sm">Batal</button>
-            <button type="submit" id="saveJournalButton" class="bg-blue-medium hover:bg-blue-medium-darker text-white font-semibold py-2.5 px-5 rounded-button shadow-md hover:shadow-lg transition duration-150 text-sm">Simpan Jurnal</button>
+            <button type="button" onclick="showView('jurnal_list')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 px-5 rounded-button">Batal</button>
+            <button type="submit" id="saveJournalButton" class="bg-blue-medium hover:bg-blue-medium-darker text-white font-semibold py-2.5 px-5 rounded-button shadow-md">Simpan Jurnal</button>
         </div>
     </form>
 </div>
