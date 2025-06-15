@@ -21,12 +21,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Koneksi MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => console.log('Berhasil terhubung ke MongoDB'))
-  .catch(err => console.error('Koneksi ke MongoDB gagal.', err));
 
+mongoose.connect(process.env.MONGO_URI) // Hapus opsi useNewUrlParser dan useUnifiedTopology
+.then(() => console.log('Berhasil terhubung ke MongoDB'))
+.catch(err => console.error('Koneksi ke MongoDB gagal.', err));
 // Static frontend SPA + views
 app.use(express.static(path.join(__dirname, '/')));
 app.use('/views', express.static(path.join(__dirname, 'views'))); // penting untuk showView() load html
