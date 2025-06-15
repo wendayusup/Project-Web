@@ -43,6 +43,7 @@
     let currentDeleteInfo = null;
     let currentEditingId = null;
     const formatDate = d => d ? new Date(d).toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'}) : '-';
+    const formatISODate = d => d ? new Date(d).toISOString().split('T')[0] : '';
     const formatCurrency = n => `Rp ${Number(n).toLocaleString('id-ID')}`;
     const showNotification = (msg,type='success')=>{const el=document.createElement('div');el.textContent=msg;el.className=`fixed top-5 right-5 p-3 rounded-md shadow-lg text-white ${type==='success'?'bg-green-500':'bg-red-500'}`;document.body.appendChild(el);setTimeout(()=>el.remove(),3000)};
 
@@ -71,9 +72,10 @@
         return await response.json();
     }
 
-    async function postData(endpoint, data) {
-        const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
-            method: 'POST',
+    async function postData(endpoint, data, method = 'POST') {
+        const url = method === 'PUT' ? `${API_BASE_URL}/${endpoint}/${currentEditingId}` : `${API_BASE_URL}/${endpoint}`;
+        const response = await fetch(url, {
+            method: method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
         });
@@ -169,97 +171,7 @@
             } catch (e) { document.getElementById('tabelPelangganBody').innerHTML = `<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal memuat data.</td></tr>`; }
         },
         'pelanggan_form': () => handleFormSubmit('pelangganForm', 'customers', 'pelanggan_list'),
-        
-        'jurnal_list': async () => {
-            try {
-                const data = await fetchData('journals');
-                renderTable('tabelJurnalBody', data, item => {
-                    const total = item.lines.reduce((sum, line) => sum + (line.debit || 0), 0);
-                    return `
-                    <tr>
-                        <td class="px-6 py-4">${item.journalNumber}</td>
-                        <td class="px-6 py-4">${formatDate(item.journalDate)}</td>
-                        <td class="px-6 py-4">${item.description}</td>
-                        <td class="px-6 py-4 text-right">${formatCurrency(total)}</td>
-                        <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full status-badge-${item.status.toLowerCase()}">${item.status}</span></td>
-                        <td class="px-6 py-4"><button onclick="openDeleteModal('journals', '${item._id}', 'jurnal_list')" class="action-link-delete hover:underline">Hapus</button></td>
-                    </tr>`;
-                }, 'Belum ada entri jurnal.');
-            } catch(e) { document.getElementById('tabelJurnalBody').innerHTML = `<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal memuat data.</td></tr>`; }
-        },
-        
-        'jurnal_form': async () => {
-            const container = document.getElementById('journalLinesContainer');
-            const addButton = document.getElementById('addJournalLine');
-            const form = document.getElementById('jurnalForm');
-            document.getElementById('journalDate').valueAsDate = new Date();
-
-            let accounts = [];
-            try { accounts = await fetchData('accounts'); } 
-            catch (e) { showNotification('Gagal memuat daftar akun', 'error'); }
-
-            const updateTotals = () => {
-                let totalDebit = 0, totalKredit = 0;
-                container.querySelectorAll('.journal-line-item').forEach(row => {
-                    totalDebit += Number(row.querySelector('[name="debit"]').value) || 0;
-                    totalKredit += Number(row.querySelector('[name="kredit"]').value) || 0;
-                });
-                document.getElementById('totalDebitDisplay').textContent = formatCurrency(totalDebit);
-                document.getElementById('totalKreditDisplay').textContent = formatCurrency(totalKredit);
-                const isUnbalanced = totalDebit.toFixed(2) !== totalKredit.toFixed(2) || totalDebit === 0;
-                document.getElementById('balanceWarning').classList.toggle('hidden', !isUnbalanced);
-                const saveButton = document.getElementById('saveJournalButton');
-                saveButton.disabled = isUnbalanced;
-                saveButton.classList.toggle('opacity-50', isUnbalanced);
-            };
-
-            const addRow = () => {
-                const template = document.getElementById('journalLineTemplate');
-                const clone = template.content.cloneNode(true);
-                const select = clone.querySelector('select');
-                select.innerHTML = '<option value="">Pilih Akun...</option>';
-                accounts.forEach(acc => { const opt=document.createElement('option'); opt.value=acc._id; opt.textContent=`${acc.accountCode} - ${acc.accountName}`; select.appendChild(opt); });
-                clone.querySelector('.remove-dynamic-line').onclick = (e) => { e.target.closest('.journal-line-item').remove(); updateTotals(); };
-                clone.querySelectorAll('input[type=number]').forEach(input => input.oninput = updateTotals);
-                container.appendChild(clone);
-            };
-
-            addButton.onclick = addRow;
-            addRow(); addRow();
-            updateTotals();
-
-            form.onsubmit = async (e) => {
-                e.preventDefault();
-                const formData = new FormData(form);
-                const lineRows = container.querySelectorAll('.journal-line-item');
-                const lines = [];
-                lineRows.forEach(row => {
-                    lines.push({
-                        accountId: row.querySelector('[name="accountId"]').value,
-                        debit: Number(row.querySelector('[name="debit"]').value),
-                        kredit: Number(row.querySelector('[name="kredit"]').value),
-                        description: row.querySelector('[name="line_description"]').value
-                    });
-                });
-
-                const mainData = {
-                    journalNumber: formData.get('journalNumber'),
-                    journalDate: formData.get('journalDate'),
-                    description: formData.get('description'),
-                    status: formData.get('status'),
-                    lines: lines
-                };
-                
-                try {
-                    await postData('journals', mainData);
-                    showNotification('Jurnal berhasil disimpan!');
-                    showView('jurnal_list', document.querySelector(`a[onclick*="jurnal_list"]`));
-                } catch (error) {
-                    showNotification(error.message, 'error');
-                }
-            };
-        },
-        // Handler stubs lainnya
+        // ... handler untuk fitur lain akan ditambahkan di sini
     };
 
     // --- MODAL LOGIC & APP START ---
