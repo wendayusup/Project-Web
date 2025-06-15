@@ -1,9 +1,10 @@
+<!-- FILE: views/jurnal_list.html -->
 <header class="flex flex-col sm:flex-row justify-between sm:items-center mb-10">
     <div>
         <h2 class="text-3xl md:text-4xl font-semibold text-brand-black">Daftar Entri Jurnal</h2>
         <p class="text-blue-dark opacity-80 font-pontano mt-1 text-sm md:text-base">Kelola semua entri jurnal keuangan.</p>
     </div>
-    <button onclick="showView('jurnal_form', this)" class="mt-4 sm:mt-0 bg-blue-medium hover:bg-blue-medium-darker text-white font-semibold py-2.5 px-5 rounded-button shadow-md hover:shadow-lg transition duration-150 text-sm">Buat Jurnal Baru</button>
+    <button onclick="showView('jurnal_form', this)" class="mt-4 sm:mt-0 bg-blue-medium hover:bg-blue-medium-darker text-white font-semibold py-2.5 px-5 rounded-button shadow-md">Buat Jurnal Baru</button>
 </header>
 <div class="bg-white p-6 md:p-8 rounded-card shadow-xl">
     <div class="overflow-x-auto">
@@ -13,15 +14,12 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">No. Jurnal</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Tanggal</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Deskripsi</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Total Debit</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Total Kredit</th>
+                    <th scope="col" class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider">Total</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Status</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider min-w-[120px]">Aksi</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Aksi</th>
                 </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200" id="tabelJurnalBody">
-                <!-- Konten tabel akan di-render oleh JavaScript -->
-            </tbody>
+            <tbody id="tabelJurnalBody" class="divide-y divide-gray-200"></tbody>
         </table>
     </div>
 </div>

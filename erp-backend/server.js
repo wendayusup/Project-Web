@@ -7,7 +7,8 @@ require('dotenv').config();
 // Impor semua model yang dibutuhkan
 const Vendor = require('./models/vendorModel');
 const Customer = require('./models/customerModel');
-// Tambahkan impor untuk model lain di sini saat Anda membuatnya
+const Account = require('./models/accountModel');
+const Journal = require('./models/journalModel');
 
 // --- 2. Inisialisasi & Konfigurasi Server ---
 const app = express();
@@ -27,73 +28,70 @@ mongoose.connect(MONGO_URI)
 
 // --- 4. ENDPOINT API ---
 
-// == API UNTUK VENDOR ==
+// Generic function untuk membuat CRUD endpoints
+const createCrudEndpoints = (app, model, routeName, sortOption = { createdAt: -1 }) => {
+    app.get(`/api/${routeName}`, async (req, res) => {
+        try {
+            const data = await model.find().sort(sortOption);
+            res.status(200).json(data);
+        } catch (err) { res.status(500).json({ message: `Gagal mengambil data ${routeName}: ${err.message}` }); }
+    });
+    app.post(`/api/${routeName}`, async (req, res) => {
+        try {
+            const savedData = await new model(req.body).save();
+            res.status(201).json(savedData);
+        } catch (err) { res.status(400).json({ message: `Data ${routeName} tidak valid: ${err.message}` }); }
+    });
+    app.delete(`/api/${routeName}/:id`, async (req, res) => {
+        try {
+            const deletedData = await model.findByIdAndDelete(req.params.id);
+            if (!deletedData) return res.status(404).json({ message: "Data tidak ditemukan" });
+            res.status(200).json({ message: "Data berhasil dihapus" });
+        } catch (err) { res.status(500).json({ message: `Gagal menghapus data ${routeName}` }); }
+    });
+};
 
-// GET all vendors
-app.get('/api/vendors', async (req, res) => {
+// Gunakan generic function untuk Master Data
+createCrudEndpoints(app, Account, 'accounts', { accountCode: 1 });
+createCrudEndpoints(app, Vendor, 'vendors');
+createCrudEndpoints(app, Customer, 'customers');
+
+// == API KHUSUS UNTUK JURNAL ==
+app.get('/api/journals', async (req, res) => {
     try {
-        const data = await Vendor.find().sort({ createdAt: -1 });
+        const data = await Journal.find().sort({ journalDate: -1, createdAt: -1 });
         res.status(200).json(data);
-    } catch (err) {
-        res.status(500).json({ message: "Gagal mengambil data vendor: " + err.message });
-    }
+    } catch (err) { res.status(500).json({ message: "Gagal mengambil data jurnal: " + err.message }); }
 });
 
-// POST new vendor
-app.post('/api/vendors', async (req, res) => {
+app.post('/api/journals', async (req, res) => {
+    console.log("Menerima data jurnal:", JSON.stringify(req.body, null, 2));
     try {
-        const newData = new Vendor(req.body);
-        const savedData = await newData.save();
+        const { lines } = req.body;
+        if (!lines || lines.length < 2) {
+             return res.status(400).json({ message: "Jurnal harus memiliki minimal 2 baris." });
+        }
+        
+        const totalDebit = lines.reduce((sum, line) => sum + (Number(line.debit) || 0), 0);
+        const totalKredit = lines.reduce((sum, line) => sum + (Number(line.kredit) || 0), 0);
+
+        if (Math.abs(totalDebit - totalKredit) > 0.01 || totalDebit === 0) {
+            return res.status(400).json({ message: "Total Debit dan Kredit harus seimbang dan tidak boleh nol." });
+        }
+        
+        const newJournal = new Journal(req.body);
+        const savedData = await newJournal.save();
         res.status(201).json(savedData);
     } catch (err) {
-        res.status(400).json({ message: "Data vendor tidak valid: " + err.message });
+        console.error("Error saat menyimpan jurnal:", err);
+        res.status(400).json({ message: `Data jurnal tidak valid: ${err.message}` });
     }
 });
 
-// DELETE a vendor by ID
-app.delete('/api/vendors/:id', async (req, res) => {
+app.delete('/api/journals/:id', async (req, res) => {
     try {
-        const { id } = req.params;
-        const deletedData = await Vendor.findByIdAndDelete(id);
-        if (!deletedData) return res.status(404).json({ message: "Vendor tidak ditemukan" });
-        res.status(200).json({ message: "Vendor berhasil dihapus" });
-    } catch (err) {
-         res.status(500).json({ message: "Gagal menghapus vendor: " + err.message });
-    }
-});
-
-
-// == API UNTUK CUSTOMER ==
-
-// GET all customers
-app.get('/api/customers', async (req, res) => {
-    try {
-        const data = await Customer.find().sort({ createdAt: -1 });
-        res.status(200).json(data);
-    } catch (err) {
-        res.status(500).json({ message: "Gagal mengambil data pelanggan: " + err.message });
-    }
-});
-
-// POST new customer
-app.post('/api/customers', async (req, res) => {
-    try {
-        const newData = new Customer(req.body);
-        const savedData = await newData.save();
-        res.status(201).json(savedData);
-    } catch (err) {
-        res.status(400).json({ message: "Data pelanggan tidak valid: " + err.message });
-    }
-});
-
-// DELETE a customer by ID
-app.delete('/api/customers/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const deletedData = await Customer.findByIdAndDelete(id);
-        if (!deletedData) return res.status(404).json({ message: "Pelanggan tidak ditemukan" });
-        res.status(200).json({ message: "Pelanggan berhasil dihapus" });
-    } catch (err) {
-         res.status(500).json({ message: "Gagal menghapus pelanggan: " + err.message });
-    }
+        const deletedData = await Journal.findByIdAndDelete(req.params.id);
+        if (!deletedData) return res.status(404).json({ message: "Jurnal tidak ditemukan" });
+        res.status(200).json({ message: "Jurnal berhasil dihapus" });
+    } catch (err) { res.status(500).json({ message: "Gagal menghapus jurnal" }); }
 });
