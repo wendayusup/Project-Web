@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 // Ini adalah Schema atau cetakan untuk setiap dokumen vendor.
