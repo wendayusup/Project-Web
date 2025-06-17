@@ -168,6 +168,28 @@
         },
         'pelanggan_form': () => handleFormSubmit('pelangganForm', 'customers', 'pelanggan_list'),
         // ... handler untuk fitur lain akan ditambahkan di sini
+        // ...existing code...
+'jurnal_list': async () => {
+    try {
+        const data = await fetchData('journals');
+        renderTable('tabelJurnalBody', data, item => `
+            <tr>
+                <td class="px-6 py-4">${item.journalNumber}</td>
+                <td class="px-6 py-4">${formatDate(item.journalDate)}</td>
+                <td class="px-6 py-4">${item.description}</td>
+                <td class="px-6 py-4">${item.status}</td>
+                <td class="px-6 py-4">
+                    <button onclick="openDeleteModal('journals', '${item._id}', 'jurnal_list')" class="action-link-delete hover:underline">Hapus</button>
+                </td>
+            </tr>
+        `, 'Belum ada data jurnal.');
+    } catch (e) {
+        document.getElementById('tabelJurnalBody').innerHTML = `<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal memuat data jurnal.</td></tr>`;
+    }
+    
+},
+    'jurnal_form': () => {handleFormSubmit('jurnalForm', 'journals', 'jurnal_list');}
+// ...existing code...
     };
 
     // --- MODAL LOGIC & APP START ---
@@ -201,6 +223,105 @@
         
         showView('dashboard', document.querySelector('#sidebarNav a'));
     });
+    // Tambahkan kode ini di dalam <script> pada index.html
+
+// ...existing code...
+
+// Fungsi untuk menambah baris detail jurnal
+function addJournalLine(accountsData) {
+    const template = document.getElementById('journalLineTemplate');
+    const clone = template.content.cloneNode(true);
+    const select = clone.querySelector('select[name="accountId"]');
+    // Isi dropdown akun
+    select.innerHTML = accountsData.map(acc =>
+        `<option value="${acc._id}">${acc.accountCode} - ${acc.accountName}</option>`
+    ).join('');
+    // Event hapus baris
+    clone.querySelector('.remove-dynamic-line').onclick = function() {
+        this.closest('.journal-line-item').remove();
+        updateJournalTotals();
+    };
+    // Event update total saat input berubah
+    clone.querySelectorAll('input[name="debit"], input[name="kredit"]').forEach(input => {
+        input.addEventListener('input', updateJournalTotals);
+    });
+    document.getElementById('journalLinesContainer').appendChild(clone);
+    updateJournalTotals();
+}
+
+// Hitung total debit/kredit dan tampilkan
+function updateJournalTotals() {
+    let totalDebit = 0, totalKredit = 0;
+    document.querySelectorAll('#journalLinesContainer .journal-line-item').forEach(line => {
+        totalDebit += Number(line.querySelector('input[name="debit"]').value) || 0;
+        totalKredit += Number(line.querySelector('input[name="kredit"]').value) || 0;
+    });
+    document.getElementById('totalDebitDisplay').textContent = `Rp ${totalDebit.toLocaleString('id-ID')}`;
+    document.getElementById('totalKreditDisplay').textContent = `Rp ${totalKredit.toLocaleString('id-ID')}`;
+    // Warning jika tidak balance
+    const warning = document.getElementById('balanceWarning');
+    if (Math.abs(totalDebit - totalKredit) > 0.01) {
+        warning.classList.remove('hidden');
+    } else {
+        warning.classList.add('hidden');
+    }
+}
+
+// Handler untuk jurnal_form
+viewHandlers['jurnal_form'] = async () => {
+    // Kosongkan baris lama
+    document.getElementById('journalLinesContainer').innerHTML = '';
+    // Ambil data akun
+    const accounts = await fetchData('accounts');
+    // Tambah 2 baris default
+    addJournalLine(accounts);
+    addJournalLine(accounts);
+    // Setup tombol tambah baris
+    document.getElementById('addJournalLine').onclick = () => addJournalLine(accounts);
+
+    // Custom submit handler agar lines dikirim sebagai array
+    const form = document.getElementById('jurnalForm');
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+        // Ambil data utama
+        const data = {
+            journalNumber: form.journalNumber.value,
+            journalDate: form.journalDate.value,
+            description: form.description.value,
+            status: form.status.value,
+            lines: []
+        };
+        // Ambil data baris
+        document.querySelectorAll('#journalLinesContainer .journal-line-item').forEach(line => {
+            data.lines.push({
+                accountId: line.querySelector('select[name="accountId"]').value,
+                debit: Number(line.querySelector('input[name="debit"]').value) || 0,
+                kredit: Number(line.querySelector('input[name="kredit"]').value) || 0,
+                description: line.querySelector('input[name="line_description"]').value || ''
+            });
+        });
+        // Validasi minimal 2 baris
+        if (data.lines.length < 2) {
+            showNotification('Jurnal harus memiliki minimal 2 baris.', 'error');
+            return;
+        }
+        // Validasi balance
+        const totalDebit = data.lines.reduce((sum, l) => sum + (l.debit || 0), 0);
+        const totalKredit = data.lines.reduce((sum, l) => sum + (l.kredit || 0), 0);
+        if (Math.abs(totalDebit - totalKredit) > 0.01 || totalDebit === 0) {
+            showNotification('Total Debit dan Kredit harus seimbang dan tidak nol.', 'error');
+            return;
+        }
+        try {
+            await postData('journals', data);
+            showNotification('Jurnal berhasil disimpan!');
+            showView('jurnal_list', document.querySelector(`a[onclick*="jurnal_list"]`));
+        } catch (error) {
+            showNotification(error.message, 'error');
+        }
+    };
+};
+// ...existing code...
     </script>
 </body>
 </html>
