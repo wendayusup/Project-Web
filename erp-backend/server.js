@@ -9,8 +9,6 @@ const Vendor = require('./models/vendorModel');
 const Customer = require('./models/customerModel');
 const Account = require('./models/accountModel');
 const Journal = require('./models/journalModel');
-// Perubahan: Mengimpor model baru dengan nama yang benar
-const FixedAsset = require('./models/FixedAssetsModel'); 
 
 // --- 2. Inisialisasi & Konfigurasi Server ---
 const app = express();
@@ -30,43 +28,20 @@ mongoose.connect(MONGO_URI)
 
 // --- 4. ENDPOINT API ---
 
-// Generic function untuk membuat CRUD endpoints (Sudah di-upgrade)
+// Generic function untuk membuat CRUD endpoints
 const createCrudEndpoints = (app, model, routeName, sortOption = { createdAt: -1 }) => {
-    // GET All
     app.get(`/api/${routeName}`, async (req, res) => {
         try {
             const data = await model.find().sort(sortOption);
             res.status(200).json(data);
         } catch (err) { res.status(500).json({ message: `Gagal mengambil data ${routeName}: ${err.message}` }); }
     });
-
-    // GET by ID
-    app.get(`/api/${routeName}/:id`, async (req, res) => {
-        try {
-            const data = await model.findById(req.params.id);
-            if (!data) return res.status(404).json({ message: "Data tidak ditemukan" });
-            res.status(200).json(data);
-        } catch (err) { res.status(500).json({ message: `Gagal mengambil data ${routeName}` }); }
-    });
-
-    // POST (Create)
     app.post(`/api/${routeName}`, async (req, res) => {
         try {
             const savedData = await new model(req.body).save();
             res.status(201).json(savedData);
         } catch (err) { res.status(400).json({ message: `Data ${routeName} tidak valid: ${err.message}` }); }
     });
-    
-    // PUT (Update)
-    app.put(`/api/${routeName}/:id`, async (req, res) => {
-        try {
-            const updatedData = await model.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-            if (!updatedData) return res.status(404).json({ message: "Data tidak ditemukan" });
-            res.status(200).json(updatedData);
-        } catch (err) { res.status(400).json({ message: `Gagal memperbarui data ${routeName}: ${err.message}` }); }
-    });
-
-    // DELETE
     app.delete(`/api/${routeName}/:id`, async (req, res) => {
         try {
             const deletedData = await model.findByIdAndDelete(req.params.id);
@@ -76,15 +51,12 @@ const createCrudEndpoints = (app, model, routeName, sortOption = { createdAt: -1
     });
 };
 
-// Gunakan generic function untuk semua Master Data
+// Gunakan generic function untuk Master Data
 createCrudEndpoints(app, Account, 'accounts', { accountCode: 1 });
 createCrudEndpoints(app, Vendor, 'vendors');
 createCrudEndpoints(app, Customer, 'customers');
-// Perubahan: Menggunakan model dan nama route baru untuk Aset Tetap
-createCrudEndpoints(app, FixedAsset, 'fixed-assets', { acquisitionDate: -1 });
 
 // == API KHUSUS UNTUK JURNAL ==
-// ... (Tidak ada perubahan pada API Jurnal) ...
 app.get('/api/journals', async (req, res) => {
     try {
         const data = await Journal.find().sort({ journalDate: -1, createdAt: -1 });
@@ -93,20 +65,25 @@ app.get('/api/journals', async (req, res) => {
 });
 
 app.post('/api/journals', async (req, res) => {
+    console.log("Menerima data jurnal:", JSON.stringify(req.body, null, 2));
     try {
         const { lines } = req.body;
         if (!lines || lines.length < 2) {
-            return res.status(400).json({ message: "Jurnal harus memiliki minimal 2 baris." });
+             return res.status(400).json({ message: "Jurnal harus memiliki minimal 2 baris." });
         }
+        
         const totalDebit = lines.reduce((sum, line) => sum + (Number(line.debit) || 0), 0);
         const totalKredit = lines.reduce((sum, line) => sum + (Number(line.kredit) || 0), 0);
+
         if (Math.abs(totalDebit - totalKredit) > 0.01 || totalDebit === 0) {
             return res.status(400).json({ message: "Total Debit dan Kredit harus seimbang dan tidak boleh nol." });
         }
+        
         const newJournal = new Journal(req.body);
         const savedData = await newJournal.save();
         res.status(201).json(savedData);
     } catch (err) {
+        console.error("Error saat menyimpan jurnal:", err);
         res.status(400).json({ message: `Data jurnal tidak valid: ${err.message}` });
     }
 });

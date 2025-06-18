@@ -1,365 +1,129 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ERP FibraWerjo - SPA</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Pontano+Sans&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Pontano+Sans&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Poppins', sans-serif
-        }
-
-        .font-pontano {
-            font-family: 'Pontano Sans', sans-serif
-        }
-
-        .bg-gold-mustard.text-blue-dark {
-            color: #183B4E
-        }
-
-        .text-brand-black {
-            color: #000
-        }
-
-        .bg-blue-medium {
-            background-color: #27548A
-        }
-
-        .hover\:bg-blue-medium-darker:hover {
-            background-color: #204473
-        }
-
-        .bg-cream {
-            background-color: #F5EEDC
-        }
-
-        .bg-dashboard-main {
-            background-color: #FBFBFB
-        }
-
-        .rounded-card {
-            border-radius: 35px
-        }
-
-        .rounded-input {
-            border-radius: 8px
-        }
-
-        .rounded-button {
-            border-radius: 8px
-        }
-
-        .sidebar-link {
-            transition: background-color .2s, color .2s;
-            color: #183B4E;
-            font-weight: 500
-        }
-
-        .sidebar-link:hover,
-        .sidebar-link.active-module {
-            background-color: #27548A;
-            color: #fff
-        }
-
-        .sidebar-title {
-            color: #183B4E
-        }
-
-        .sidebar-category-title {
-            color: #183B4E;
-            opacity: .7
-        }
-
-        .table-header-custom th {
-            color: #183B4E;
-            font-family: 'Poppins', sans-serif
-        }
-
-        .data-cell {
-            font-family: 'Pontano Sans', sans-serif;
-            color: #183B4E
-        }
-
-        .data-cell-dimmed {
-            font-family: 'Pontano Sans', sans-serif;
-            color: #4b5563
-        }
-
-        .action-link-detail {
-            color: #5B21B6
-        }
-
-        .action-link-edit {
-            color: #2563EB
-        }
-
-        .action-link-delete {
-            color: #DC2626
-        }
-
-        .status-badge-active,
-        .status-badge-Aktif {
-            background-color: #D1FAE5;
-            color: #065F46
-        }
-
-        .status-badge-inactive,
-        .status-badge-Nonaktif {
-            background-color: #FEE2E2;
-            color: #991B1B
-        }
-
-        .status-badge-posted,
-        .status-badge-Posted {
-            background-color: #DBEAFE;
-            color: #1E40AF
-        }
-
-        .status-badge-draft,
-        .status-badge-Draft {
-            background-color: #FEF3C7;
-            color: #92400E
-        }
-
-        .status-badge-Lunas {
-            background-color: #D1FAE5;
-            color: #065F46
-        }
-
-        .status-badge-Belum_Lunas {
-            background-color: #FEE2E2;
-            color: #991B1B
-        }
-
-        .status-badge-Sebagian_Lunas {
-            background-color: #FEF9C3;
-            color: #713F12
-        }
-
-        .status-badge-admin {
-            background-color: #C7D2FE;
-            color: #4338CA
-        }
-
-        .status-badge-staff {
-            background-color: #E0E7FF;
-            color: #4F46E5
-        }
-
-        .status-badge-viewer {
-            background-color: #F3F4F6;
-            color: #4B5563
-        }
-
-        .journal-line-item input,
-        .invoice-line-item input {
-            min-width: 80px
-        }
-
-        .invoice-line-item select {
-            min-width: 150px
-        }
+        body{font-family:'Poppins',sans-serif}.font-pontano{font-family:'Pontano Sans',sans-serif}.bg-gold-mustard.text-blue-dark{color:#183B4E}.text-brand-black{color:#000}.bg-blue-medium{background-color:#27548A}.hover\:bg-blue-medium-darker:hover{background-color:#204473}.bg-cream{background-color:#F5EEDC}.bg-dashboard-main{background-color:#FBFBFB}.rounded-card{border-radius:35px}.rounded-input{border-radius:8px}.rounded-button{border-radius:8px}.sidebar-link{transition:background-color .2s,color .2s;color:#183B4E;font-weight:500}.sidebar-link:hover,.sidebar-link.active-module{background-color:#27548A;color:#fff}.sidebar-title{color:#183B4E}.sidebar-category-title{color:#183B4E;opacity:.7}.table-header-custom th{color:#183B4E;font-family:'Poppins',sans-serif}.data-cell{font-family:'Pontano Sans',sans-serif;color:#183B4E}.data-cell-dimmed{font-family:'Pontano Sans',sans-serif;color:#4b5563}.action-link-detail{color:#5B21B6}.action-link-edit{color:#2563EB}.action-link-delete{color:#DC2626}.status-badge-active,.status-badge-Aktif{background-color:#D1FAE5;color:#065F46}.status-badge-inactive,.status-badge-Nonaktif{background-color:#FEE2E2;color:#991B1B}.status-badge-posted,.status-badge-Posted{background-color:#DBEAFE;color:#1E40AF}.status-badge-draft,.status-badge-Draft{background-color:#FEF3C7;color:#92400E}.status-badge-Lunas{background-color:#D1FAE5;color:#065F46}.status-badge-Belum_Lunas{background-color:#FEE2E2;color:#991B1B}.status-badge-Sebagian_Lunas{background-color:#FEF9C3;color:#713F12}.status-badge-admin{background-color:#C7D2FE;color:#4338CA}.status-badge-staff{background-color:#E0E7FF;color:#4F46E5}.status-badge-viewer{background-color:#F3F4F6;color:#4B5563}.journal-line-item input,.invoice-line-item input{min-width:80px}.invoice-line-item select{min-width:150px}
     </style>
 </head>
-
 <body class="bg-cream font-pontano text-brand-black">
     <div class="flex h-screen">
         <aside class="w-64 bg-gold-mustard p-6 space-y-4 fixed h-full overflow-y-auto shadow-xl">
             <h1 class="text-3xl font-semibold sidebar-title text-center mb-8">Management Factory</h1>
             <nav class="space-y-1" id="sidebarNav">
-                <a href="#" onclick="showView('dashboard', this)"
-                    class="block py-2.5 px-4 rounded-button sidebar-link">Dashboard</a>
-                <div class="pt-3">
-                    <h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Master
-                        Data</h2><a href="#" onclick="showView('akun_list', this)"
-                        class="block py-2.5 px-4 rounded-button sidebar-link">Daftar Akun</a><a href="#"
-                        onclick="showView('vendor_list', this)"
-                        class="block py-2.5 px-4 rounded-button sidebar-link">Vendor</a><a href="#"
-                        onclick="showView('pelanggan_list', this)"
-                        class="block py-2.5 px-4 rounded-button sidebar-link">Pelanggan</a>
-                </div>
-                <div class="pt-3">
-                    <h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">
-                        Transaksi</h2><a href="#" onclick="showView('jurnal_list', this)"
-                        class="block py-2.5 px-4 rounded-button sidebar-link">Entri Jurnal Umum</a><a href="#"
-                        onclick="showView('faktur_pembelian_list', this)"
-                        class="block py-2.5 px-4 rounded-button sidebar-link">Faktur Pembelian (AP)</a><a href="#"
-                        onclick="showView('pembayaran_hutang_list', this)"
-                        class="block py-2.5 px-4 rounded-button sidebar-link">Pembayaran Hutang (AP)</a><a href="#"
-                        onclick="showView('faktur_penjualan_list', this)"
-                        class="block py-2.5 px-4 rounded-button sidebar-link">Faktur Penjualan (AR)</a><a href="#"
-                        onclick="showView('penerimaan_piutang_list', this)"
-                        class="block py-2.5 px-4 rounded-button sidebar-link">Penerimaan Piutang (AR)</a>
-                </div>
-                <div class="pt-3">
-                    <h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Aset
-                        Tetap</h2><a href="#" onclick="showView('aset_tetap_list', this)"
-                        class="block py-2.5 px-4 rounded-button sidebar-link">Daftar Aset Tetap</a><a href="#"
-                        onclick="showView('log_depresiasi_list', this)"
-                        class="block py-2.5 px-4 rounded-button sidebar-link">Log Depresiasi</a>
-                </div>
-                <div class="pt-3">
-                    <h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">
-                        Pengaturan</h2><a href="#" onclick="showView('pengguna_list', this)"
-                        class="block py-2.5 px-4 rounded-button sidebar-link">Pengguna</a>
-                </div>
+                <a href="#" onclick="showView('dashboard', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Dashboard</a>
+                <div class="pt-3"><h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Master Data</h2><a href="#" onclick="showView('akun_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Daftar Akun</a><a href="#" onclick="showView('vendor_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Vendor</a><a href="#" onclick="showView('pelanggan_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Pelanggan</a></div>
+                <div class="pt-3"><h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Transaksi</h2><a href="#" onclick="showView('jurnal_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Entri Jurnal Umum</a><a href="#" onclick="showView('faktur_pembelian_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Faktur Pembelian (AP)</a><a href="#" onclick="showView('pembayaran_hutang_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Pembayaran Hutang (AP)</a><a href="#" onclick="showView('faktur_penjualan_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Faktur Penjualan (AR)</a><a href="#" onclick="showView('penerimaan_piutang_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Penerimaan Piutang (AR)</a></div>
+                <div class="pt-3"><h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Aset Tetap</h2><a href="#" onclick="showView('aset_tetap_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Daftar Aset Tetap</a><a href="#" onclick="showView('log_depresiasi_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Log Depresiasi</a></div>
+                <div class="pt-3"><h2 class="text-xs font-semibold sidebar-category-title uppercase tracking-wider mb-2 px-4">Pengaturan</h2><a href="#" onclick="showView('pengguna_list', this)" class="block py-2.5 px-4 rounded-button sidebar-link">Pengguna</a></div>
             </nav>
         </aside>
 
         <main id="mainContent" class="flex-1 ml-64 overflow-y-auto bg-dashboard-main">
             <div id="viewContainer" class="relative p-8 lg:p-10 min-h-[calc(100vh-100px)]"></div>
-            <footer class="text-center text-sm text-blue-dark opacity-70 p-8 lg:p-10">© <span id="currentYear"></span>
-                ERP FibraWerjo. Semua Hak Dilindungi.</footer>
+            <footer class="text-center text-sm text-blue-dark opacity-70 p-8 lg:p-10">© <span id="currentYear"></span> ERP FibraWerjo. Semua Hak Dilindungi.</footer>
         </main>
     </div>
 
-    <div id="deleteConfirmationModal"
-        class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden items-center justify-center z-50">
-        <div class="relative mx-auto p-5 border w-full max-w-md shadow-lg rounded-card bg-white">
-            <div class="mt-3 text-center">
-                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100"><svg
-                        class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
-                        </path>
-                    </svg></div>
-                <h3 id="deleteModalTitle" class="text-lg leading-6 font-medium text-gray-900 mt-2">Hapus Data</h3>
-                <div class="mt-2 px-7 py-3">
-                    <p id="deleteModalMessage" class="text-sm text-gray-500 font-pontano">Apakah Anda yakin ingin
-                        menghapus data ini? Tindakan ini tidak dapat diurungkan.</p>
-                </div>
-                <div class="items-center px-4 py-3 space-x-4"><button id="cancelDeleteButton"
-                        class="px-4 py-2 bg-gray-200 text-gray-800 rounded-button hover:bg-gray-300 text-sm font-medium">Batal</button><button
-                        id="confirmDeleteButton"
-                        class="px-4 py-2 bg-red-600 text-white rounded-button hover:bg-red-700 text-sm font-medium">Ya,
-                        Hapus</button></div>
-            </div>
-        </div>
-    </div>
-
-    <template id="journalLineTemplate">
-        <div
-            class="journal-line-item grid grid-cols-12 gap-x-3 gap-y-2 items-center p-3 border border-gray-200 rounded-lg bg-gray-50/50">
-            <div class="col-span-12 md:col-span-4"><label
-                    class="text-xs font-medium text-blue-dark opacity-70">Akun</label><select name="accountId" required
-                    class="mt-1 block w-full px-2 py-1.5 border border-gray-300 bg-white rounded-input shadow-sm sm:text-sm data-cell-dimmed"></select>
-            </div>
-            <div class="col-span-6 md:col-span-2"><label
-                    class="text-xs font-medium text-blue-dark opacity-70">Debit</label><input type="number" name="debit"
-                    value="0" min="0" step="any"
-                    class="debit-input mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-input shadow-sm sm:text-sm text-right data-cell-dimmed">
-            </div>
-            <div class="col-span-6 md:col-span-2"><label
-                    class="text-xs font-medium text-blue-dark opacity-70">Kredit</label><input type="number"
-                    name="kredit" value="0" min="0" step="any"
-                    class="kredit-input mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-input shadow-sm sm:text-sm text-right data-cell-dimmed">
-            </div>
-            <div class="col-span-10 md:col-span-3"><label
-                    class="text-xs font-medium text-blue-dark opacity-70">Deskripsi</label><input type="text"
-                    name="line_description"
-                    class="mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-input shadow-sm sm:text-sm data-cell-dimmed">
-            </div>
-            <div class="col-span-2 md:col-span-1 flex items-end justify-end"><button type="button"
-                    class="remove-dynamic-line mt-5 text-red-600 hover:text-red-800 text-xs">Hapus</button></div>
-        </div>
-    </template>
-
+    <div id="deleteConfirmationModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden items-center justify-center z-50"><div class="relative mx-auto p-5 border w-full max-w-md shadow-lg rounded-card bg-white"><div class="mt-3 text-center"><div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100"><svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div><h3 id="deleteModalTitle" class="text-lg leading-6 font-medium text-gray-900 mt-2">Hapus Data</h3><div class="mt-2 px-7 py-3"><p id="deleteModalMessage" class="text-sm text-gray-500 font-pontano">Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat diurungkan.</p></div><div class="items-center px-4 py-3 space-x-4"><button id="cancelDeleteButton" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-button hover:bg-gray-300 text-sm font-medium">Batal</button><button id="confirmDeleteButton" class="px-4 py-2 bg-red-600 text-white rounded-button hover:bg-red-700 text-sm font-medium">Ya, Hapus</button></div></div></div></div>
+    
+    <template id="journalLineTemplate"><div class="journal-line-item grid grid-cols-12 gap-x-3 gap-y-2 items-center p-3 border border-gray-200 rounded-lg bg-gray-50/50"><div class="col-span-12 md:col-span-4"><label class="text-xs font-medium text-blue-dark opacity-70">Akun</label><select name="accountId" required class="mt-1 block w-full px-2 py-1.5 border border-gray-300 bg-white rounded-input shadow-sm sm:text-sm data-cell-dimmed"></select></div><div class="col-span-6 md:col-span-2"><label class="text-xs font-medium text-blue-dark opacity-70">Debit</label><input type="number" name="debit" value="0" min="0" step="any" class="debit-input mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-input shadow-sm sm:text-sm text-right data-cell-dimmed"></div><div class="col-span-6 md:col-span-2"><label class="text-xs font-medium text-blue-dark opacity-70">Kredit</label><input type="number" name="kredit" value="0" min="0" step="any" class="kredit-input mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-input shadow-sm sm:text-sm text-right data-cell-dimmed"></div><div class="col-span-10 md:col-span-3"><label class="text-xs font-medium text-blue-dark opacity-70">Deskripsi</label><input type="text" name="line_description" class="mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-input shadow-sm sm:text-sm data-cell-dimmed"></div><div class="col-span-2 md:col-span-1 flex items-end justify-end"><button type="button" class="remove-dynamic-line mt-5 text-red-600 hover:text-red-800 text-xs">Hapus</button></div></div></template>
+    
     <script>
-        // --- KONFIGURASI & UTILITIES ---
-        const API_BASE_URL = 'http://localhost:5000/api';
-        let currentDeleteInfo = null;
-        let currentEditingId = null;
-        const formatDate = d => d ? new Date(d).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }) : '-';
-        const formatISODate = d => d ? new Date(d).toISOString().split('T')[0] : '';
-        const formatCurrency = n => `Rp ${Number(n).toLocaleString('id-ID')}`;
-        const showNotification = (msg, type = 'success') => { const el = document.createElement('div'); el.textContent = msg; el.className = `fixed top-5 right-5 p-3 rounded-md shadow-lg text-white ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`; document.body.appendChild(el); setTimeout(() => el.remove(), 3000) };
+    // --- KONFIGURASI & UTILITIES ---
+    const API_BASE_URL = 'http://localhost:5000/api';
+    let currentDeleteInfo = null;
+    let currentEditingId = null;
+    const formatDate = d => d ? new Date(d).toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'}) : '-';
+    const formatISODate = d => d ? new Date(d).toISOString().split('T')[0] : '';
+    const formatCurrency = n => `Rp ${Number(n).toLocaleString('id-ID')}`;
+    const showNotification = (msg,type='success')=>{const el=document.createElement('div');el.textContent=msg;el.className=`fixed top-5 right-5 p-3 rounded-md shadow-lg text-white ${type==='success'?'bg-green-500':'bg-red-500'}`;document.body.appendChild(el);setTimeout(()=>el.remove(),3000)};
 
-        // --- FUNGSI INTI ---
-        async function showView(viewName, activeLink, params = null) {
-            currentEditingId = params;
-            const viewContainer = document.getElementById('viewContainer');
+    // --- FUNGSI INTI ---
+    async function showView(viewName, activeLink, params = null) {
+        currentEditingId = params;
+        const viewContainer = document.getElementById('viewContainer');
+        try {
+            const response = await fetch(`views/${viewName}.html`);
+            if (!response.ok) throw new Error(`Halaman ${viewName}.html tidak ditemukan.`);
+            
+            viewContainer.innerHTML = await response.text();
+            document.querySelectorAll('#sidebarNav .sidebar-link').forEach(link => link.classList.remove('active-module'));
+            if(activeLink) activeLink.classList.add('active-module');
+
+            const handler = viewHandlers[viewName];
+            if (typeof handler === 'function') handler(params);
+        } catch (error) {
+            viewContainer.innerHTML = `<div class="p-10 text-center text-red-500"><strong>Error:</strong> ${error.message}</div>`;
+        }
+    }
+
+    async function fetchData(endpoint) {
+        const response = await fetch(`${API_BASE_URL}/${endpoint}`);
+        if (!response.ok) throw new Error(`Gagal mengambil data dari ${endpoint}`);
+        return await response.json();
+    }
+
+    async function postData(endpoint, data, method = 'POST') {
+        const url = method === 'PUT' ? `${API_BASE_URL}/${endpoint}/${currentEditingId}` : `${API_BASE_URL}/${endpoint}`;
+        const response = await fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.message || 'Gagal menyimpan data');
+        }
+        return await response.json();
+    }
+    
+    async function deleteData(module, id) {
+        const response = await fetch(`${API_BASE_URL}/${module}/${id}`, { method: 'DELETE' });
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.message || 'Gagal menghapus data');
+        }
+        return await response.json();
+    }
+
+    function handleFormSubmit(formId, module, successView) {
+        const form = document.getElementById(formId);
+        if (!form) return;
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            form.querySelectorAll('input[type=checkbox]').forEach(cb => { data[cb.name] = cb.checked; });
             try {
-                const response = await fetch(`views/${viewName}.html`);
-                if (!response.ok) throw new Error(`Halaman ${viewName}.html tidak ditemukan.`);
-
-                viewContainer.innerHTML = await response.text();
-                document.querySelectorAll('#sidebarNav .sidebar-link').forEach(link => link.classList.remove('active-module'));
-                if (activeLink) activeLink.classList.add('active-module');
-
-                const handler = viewHandlers[viewName];
-                if (typeof handler === 'function') handler(params);
+                await postData(module, data);
+                showNotification('Data berhasil disimpan!');
+                showView(successView, document.querySelector(`a[onclick*="${successView}"]`));
             } catch (error) {
-                viewContainer.innerHTML = `<div class="p-10 text-center text-red-500"><strong>Error:</strong> ${error.message}</div>`;
+                showNotification(error.message, 'error');
             }
-        }
+        };
+    }
 
-        async function fetchData(endpoint) {
-            const response = await fetch(`${API_BASE_URL}/${endpoint}`);
-            if (!response.ok) throw new Error(`Gagal mengambil data dari ${endpoint}`);
-            return await response.json();
-        }
+    function renderTable(tbodyId, data, rowTemplate, emptyMsg) {
+        const tbody = document.getElementById(tbodyId);
+        if (!tbody) return;
+        tbody.innerHTML = (data.length === 0) 
+            ? `<tr><td colspan="100%" class="text-center p-4 text-gray-500">${emptyMsg}</td></tr>`
+            : data.map(rowTemplate).join('');
+    }
 
-        async function postData(endpoint, data, method = 'POST') {
-            const url = method === 'PUT' ? `${API_BASE_URL}/${endpoint}/${currentEditingId}` : `${API_BASE_URL}/${endpoint}`;
-            const response = await fetch(url, {
-                method: method,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-            if (!response.ok) {
-                const err = await response.json();
-                throw new Error(err.message || 'Gagal menyimpan data');
-            }
-            return await response.json();
-        }
-
-        async function deleteData(module, id) {
-            const response = await fetch(`${API_BASE_URL}/${module}/${id}`, { method: 'DELETE' });
-            if (!response.ok) {
-                const err = await response.json();
-                throw new Error(err.message || 'Gagal menghapus data');
-            }
-            return await response.json();
-        }
-
-        function handleFormSubmit(formId, module, successView) {
-            const form = document.getElementById(formId);
-            if (!form) return;
-            form.onsubmit = async (e) => {
-                e.preventDefault();
-                const formData = new FormData(form);
-                const data = Object.fromEntries(formData.entries());
-                form.querySelectorAll('input[type=checkbox]').forEach(cb => { data[cb.name] = cb.checked; });
-                try {
-                    await postData(module, data);
-                    showNotification('Data berhasil disimpan!');
-                    showView(successView, document.querySelector(`a[onclick*="${successView}"]`));
-                } catch (error) {
-                    showNotification(error.message, 'error');
-                }
-            };
-        }
-
-        function renderTable(tbodyId, data, rowTemplate, emptyMsg) {
-            const tbody = document.getElementById(tbodyId);
-            if (!tbody) return;
-            tbody.innerHTML = (data.length === 0)
-                ? `<tr><td colspan="100%" class="text-center p-4 text-gray-500">${emptyMsg}</td></tr>`
-                : data.map(rowTemplate).join('');
-        }
-
-        // --- VIEW HANDLERS ---
-        const viewHandlers = {
-            'dashboard': () => { },
-            'akun_list': async () => {
-                try {
-                    const data = await fetchData('accounts');
-                    renderTable('tabelAkunBody', data, item => `
+    // --- VIEW HANDLERS ---
+    const viewHandlers = {
+        'dashboard': () => {},
+        'akun_list': async () => {
+             try {
+                const data = await fetchData('accounts');
+                renderTable('tabelAkunBody', data, item => `
                     <tr>
                         <td class="px-6 py-4">${item.accountCode}</td>
                         <td class="px-6 py-4">${item.accountName}</td>
@@ -368,14 +132,14 @@
                         <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full status-badge-${item.isActive ? 'active' : 'inactive'}">${item.isActive ? 'Aktif' : 'Nonaktif'}</span></td>
                         <td class="px-6 py-4"><button onclick="openDeleteModal('accounts', '${item._id}', 'akun_list')" class="action-link-delete hover:underline">Hapus</button></td>
                     </tr>`, 'Belum ada data akun.');
-                } catch (e) { document.getElementById('tabelAkunBody').innerHTML = `<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal memuat data.</td></tr>`; }
-            },
-            'akun_form': () => handleFormSubmit('akunForm', 'accounts', 'akun_list'),
-
-            'vendor_list': async () => {
-                try {
-                    const data = await fetchData('vendors');
-                    renderTable('tabelVendorBody', data, item => `
+            } catch (e) { document.getElementById('tabelAkunBody').innerHTML = `<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal memuat data.</td></tr>`; }
+        },
+        'akun_form': () => handleFormSubmit('akunForm', 'accounts', 'akun_list'),
+        
+        'vendor_list': async () => {
+            try {
+                const data = await fetchData('vendors');
+                renderTable('tabelVendorBody', data, item => `
                     <tr>
                         <td class="px-6 py-4">${item.vendorCode || '-'}</td>
                         <td class="px-6 py-4">${item.vendorName}</td>
@@ -384,14 +148,14 @@
                         <td class="px-6 py-4">${item.phone || '-'}</td>
                         <td class="px-6 py-4"><button onclick="openDeleteModal('vendors', '${item._id}', 'vendor_list')" class="action-link-delete hover:underline">Hapus</button></td>
                     </tr>`, 'Belum ada data vendor.');
-                } catch (e) { document.getElementById('tabelVendorBody').innerHTML = `<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal memuat data.</td></tr>`; }
-            },
-            'vendor_form': () => handleFormSubmit('vendorForm', 'vendors', 'vendor_list'),
-
-            'pelanggan_list': async () => {
-                try {
-                    const data = await fetchData('customers');
-                    renderTable('tabelPelangganBody', data, item => `
+            } catch (e) { document.getElementById('tabelVendorBody').innerHTML = `<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal memuat data.</td></tr>`; }
+        },
+        'vendor_form': () => handleFormSubmit('vendorForm', 'vendors', 'vendor_list'),
+        
+        'pelanggan_list': async () => {
+             try {
+                const data = await fetchData('customers');
+                renderTable('tabelPelangganBody', data, item => `
                     <tr>
                         <td class="px-6 py-4">${item.customerCode || '-'}</td>
                         <td class="px-6 py-4">${item.customerName}</td>
@@ -400,178 +164,164 @@
                         <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full status-badge-${item.isActive ? 'active' : 'inactive'}">${item.isActive ? 'Aktif' : 'Nonaktif'}</span></td>
                         <td class="px-6 py-4"><button onclick="openDeleteModal('customers', '${item._id}', 'pelanggan_list')" class="action-link-delete hover:underline">Hapus</button></td>
                     </tr>`, 'Belum ada data pelanggan.');
-                } catch (e) { document.getElementById('tabelPelangganBody').innerHTML = `<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal memuat data.</td></tr>`; }
-            },
-            'pelanggan_form': () => handleFormSubmit('pelangganForm', 'customers', 'pelanggan_list'),
-
-            'aset_tetap_list': async () => {
-                try {
-                    // Perubahan: Menggunakan endpoint 'fixed-assets'
-                    const data = await fetchData('fixed-assets');
-                    renderTable('tabelAsetBody', data, item => `
-            <tr class="hover:bg-gray-50/50">
-                <td class="px-6 py-4 whitespace-nowrap data-cell-dimmed">${item.assetCode}</td>
-                <td class="px-6 py-4 whitespace-nowrap data-cell font-medium">${item.assetName}</td>
-                <td class="px-6 py-4 whitespace-nowrap data-cell-dimmed">${formatDate(item.acquisitionDate)}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-right data-cell-dimmed">${formatCurrency(item.acquisitionCost)}</td>
-                <td class="px-6 py-4 whitespace-nowrap data-cell-dimmed">${item.depreciationMethod}</td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-badge-${item.status}">${item.status}</span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-4">
-                    <a href="#" onclick="showView('aset_tetap_form', document.querySelector('a[onclick*=\\'aset_tetap_list\\']'), '${item._id}')" class="action-link-edit hover:underline">Edit</a>
-                    <a href="#" onclick="openDeleteModal('fixed-assets', '${item._id}', 'aset_tetap_list')" class="action-link-delete hover:underline">Hapus</a>
+            } catch (e) { document.getElementById('tabelPelangganBody').innerHTML = `<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal memuat data.</td></tr>`; }
+        },
+        'pelanggan_form': () => handleFormSubmit('pelangganForm', 'customers', 'pelanggan_list'),
+        // ... handler untuk fitur lain akan ditambahkan di sini
+        // ...existing code...
+'jurnal_list': async () => {
+    try {
+        const data = await fetchData('journals');
+        renderTable('tabelJurnalBody', data, item => `
+            <tr>
+                <td class="px-6 py-4">${item.journalNumber}</td>
+                <td class="px-6 py-4">${formatDate(item.journalDate)}</td>
+                <td class="px-6 py-4">${item.description}</td>
+                <td class="px-6 py-4">${item.status}</td>
+                <td class="px-6 py-4">
+                    <button onclick="openDeleteModal('journals', '${item._id}', 'jurnal_list')" class="action-link-delete hover:underline">Hapus</button>
                 </td>
             </tr>
-        `, 'Belum ada data aset tetap.');
-                } catch (e) {
-                    document.getElementById('tabelAsetBody').innerHTML = `<tr><td colspan="7" class="text-center p-6 text-red-500 font-pontano">Gagal memuat data aset: ${e.message}</td></tr>`;
-                }
-            },
+        `, 'Belum ada data jurnal.');
+    } catch (e) {
+        document.getElementById('tabelJurnalBody').innerHTML = `<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal memuat data jurnal.</td></tr>`;
+    }
+    
+},
+    'jurnal_form': () => {handleFormSubmit('jurnalForm', 'journals', 'jurnal_list');}
+// ...existing code...
+    };
 
-            'aset_tetap_form': async (assetId) => {
-                const form = document.getElementById('asset-form');
-                const formTitle = document.getElementById('assetFormTitle');
-                const statusDiv = document.getElementById('status').parentElement;
-
-                // --- REVISI DI BAWAH INI ---
-                const populateAccountDropdowns = async (selectedIds = {}) => {
-                    const assetAccSelect = document.getElementById('assetAccountId');
-                    const accumDepAccSelect = document.getElementById('accumDepAccountId');
-                    const depExpAccSelect = document.getElementById('depExpenseAccountId');
-
-                    const renderOptions = (selectEl, accounts, selectedId, filterType) => {
-                        // Selalu mulai dengan opsi default
-                        selectEl.innerHTML = '<option value="">-- Pilih Akun --</option>';
-
-                        // Filter akun berdasarkan tipe yang relevan
-                        const filteredAccounts = accounts.filter(a => a.accountType === filterType);
-
-                        if (filteredAccounts.length === 0) {
-                            console.warn(`Tidak ada akun yang ditemukan untuk tipe: "${filterType}"`);
-                        }
-
-                        filteredAccounts.forEach(acc => {
-                            const option = new Option(`${acc.accountCode} - ${acc.accountName}`, acc._id);
-                            if (acc._id.toString() === selectedId?.toString()) {
-                                option.selected = true;
-                            }
-                            selectEl.add(option);
-                        });
-                    };
-
-                    try {
-                        const allAccounts = await fetchData('accounts');
-                        if (!allAccounts || allAccounts.length === 0) {
-                            showNotification('Tidak ada data akun yang ditemukan.', 'error');
-                            return;
-                        }
-
-                        // Render setiap dropdown dengan filter yang sesuai
-                        renderOptions(assetAccSelect, allAccounts, selectedIds.assetAccountId, 'Aset Tetap');
-                        renderOptions(accumDepAccSelect, allAccounts, selectedIds.accumDepAccountId, 'Akumulasi Penyusutan');
-                        renderOptions(depExpAccSelect, allAccounts, selectedIds.depExpenseAccountId, 'Beban');
-
-                    } catch (e) {
-                        showNotification('Gagal memuat daftar akun: ' + e.message, 'error');
-                        // Tampilkan pesan error di dropdown jika gagal fetch
-                        assetAccSelect.innerHTML = `<option value="">Error: ${e.message}</option>`;
-                        accumDepAccSelect.innerHTML = `<option value="">Error: ${e.message}</option>`;
-                        depExpAccSelect.innerHTML = `<option value="">Error: ${e.message}</option>`;
-                    }
-                };
-                // --- AKHIR REVISI ---
-
-                if (assetId) {
-                    currentEditingId = assetId;
-                    formTitle.textContent = 'Edit Data Aset Tetap';
-                    statusDiv.style.display = 'block';
-
-                    try {
-                        const assetData = await fetchData(`fixed-assets/${assetId}`);
-                        await populateAccountDropdowns({
-                            assetAccountId: assetData.assetAccountId,
-                            accumDepAccountId: assetData.accumDepAccountId,
-                            depExpenseAccountId: assetData.depExpenseAccountId
-                        });
-
-                        form.assetName.value = assetData.assetName;
-                        form.assetCode.value = assetData.assetCode;
-                        form.acquisitionDate.value = formatISODate(assetData.acquisitionDate);
-                        form.acquisitionCost.value = assetData.acquisitionCost;
-                        form.usefulLife.value = assetData.usefulLife;
-                        form.salvageValue.value = assetData.salvageValue;
-                        form.depreciationMethod.value = assetData.depreciationMethod;
-                        form.status.value = assetData.status;
-
-                    } catch (e) {
-                        showNotification('Gagal mengambil data aset: ' + e.message, 'error');
-                        showView('aset_tetap_list', document.querySelector('a[onclick*="aset_tetap_list"]'));
-                    }
-                } else {
-                    currentEditingId = null;
-                    formTitle.textContent = 'Tambah Aset Tetap Baru';
-                    statusDiv.style.display = 'none';
-                    await populateAccountDropdowns();
-                }
-
-                form.onsubmit = async (e) => {
-                    e.preventDefault();
-                    const formData = new FormData(form);
-                    const data = Object.fromEntries(formData.entries());
-
-                    data.acquisitionCost = parseFloat(data.acquisitionCost);
-                    data.usefulLife = parseInt(data.usefulLife, 10);
-                    data.salvageValue = parseFloat(data.salvageValue);
-
-                    if (!currentEditingId) {
-                        data.status = 'Aktif';
-                    }
-
-                    try {
-                        const method = currentEditingId ? 'PUT' : 'POST';
-                        await postData('fixed-assets', data, method);
-                        showNotification('Data aset berhasil disimpan!');
-                        showView('aset_tetap_list', document.querySelector('a[onclick*="aset_tetap_list"]'));
-                    } catch (error) {
-                        showNotification('Error: ' + error.message, 'error');
-                    }
-                };
+    // --- MODAL LOGIC & APP START ---
+    function openDeleteModal(module, id, refreshView) {
+        currentDeleteInfo = { module, id, refreshView };
+        document.getElementById('deleteConfirmationModal').classList.remove('hidden');
+        document.getElementById('deleteConfirmationModal').classList.add('flex');
+    }
+    const closeDeleteModal = () => {
+        document.getElementById('deleteConfirmationModal').classList.add('hidden');
+        currentDeleteInfo = null;
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        document.getElementById('cancelDeleteButton').addEventListener('click', closeDeleteModal);
+        
+        document.getElementById('confirmDeleteButton').addEventListener('click', async () => {
+            if (!currentDeleteInfo) return;
+            const { module, id, refreshView } = currentDeleteInfo;
+            try {
+                await deleteData(module, id);
+                showNotification('Data berhasil dihapus.');
+                showView(refreshView, document.querySelector(`a[onclick*="${refreshView}"]`));
+            } catch (error) {
+                showNotification(error.message, 'error');
+            } finally {
+                closeDeleteModal();
             }
-        };
-
-        // --- MODAL LOGIC & APP START ---
-        function openDeleteModal(module, id, refreshView) {
-            currentDeleteInfo = { module, id, refreshView };
-            document.getElementById('deleteConfirmationModal').classList.remove('hidden');
-            document.getElementById('deleteConfirmationModal').classList.add('flex');
-        }
-        const closeDeleteModal = () => {
-            document.getElementById('deleteConfirmationModal').classList.add('hidden');
-            currentDeleteInfo = null;
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-            document.getElementById('cancelDeleteButton').addEventListener('click', closeDeleteModal);
-
-            document.getElementById('confirmDeleteButton').addEventListener('click', async () => {
-                if (!currentDeleteInfo) return;
-                const { module, id, refreshView } = currentDeleteInfo;
-                try {
-                    await deleteData(module, id);
-                    showNotification('Data berhasil dihapus.');
-                    showView(refreshView, document.querySelector(`a[onclick*="${refreshView}"]`));
-                } catch (error) {
-                    showNotification(error.message, 'error');
-                } finally {
-                    closeDeleteModal();
-                }
-            });
-
-            showView('dashboard', document.querySelector('#sidebarNav a'));
         });
+        
+        showView('dashboard', document.querySelector('#sidebarNav a'));
+    });
+    // Tambahkan kode ini di dalam <script> pada index.html
+
+// ...existing code...
+
+// Fungsi untuk menambah baris detail jurnal
+function addJournalLine(accountsData) {
+    const template = document.getElementById('journalLineTemplate');
+    const clone = template.content.cloneNode(true);
+    const select = clone.querySelector('select[name="accountId"]');
+    // Isi dropdown akun
+    select.innerHTML = accountsData.map(acc =>
+        `<option value="${acc._id}">${acc.accountCode} - ${acc.accountName}</option>`
+    ).join('');
+    // Event hapus baris
+    clone.querySelector('.remove-dynamic-line').onclick = function() {
+        this.closest('.journal-line-item').remove();
+        updateJournalTotals();
+    };
+    // Event update total saat input berubah
+    clone.querySelectorAll('input[name="debit"], input[name="kredit"]').forEach(input => {
+        input.addEventListener('input', updateJournalTotals);
+    });
+    document.getElementById('journalLinesContainer').appendChild(clone);
+    updateJournalTotals();
+}
+
+// Hitung total debit/kredit dan tampilkan
+function updateJournalTotals() {
+    let totalDebit = 0, totalKredit = 0;
+    document.querySelectorAll('#journalLinesContainer .journal-line-item').forEach(line => {
+        totalDebit += Number(line.querySelector('input[name="debit"]').value) || 0;
+        totalKredit += Number(line.querySelector('input[name="kredit"]').value) || 0;
+    });
+    document.getElementById('totalDebitDisplay').textContent = `Rp ${totalDebit.toLocaleString('id-ID')}`;
+    document.getElementById('totalKreditDisplay').textContent = `Rp ${totalKredit.toLocaleString('id-ID')}`;
+    // Warning jika tidak balance
+    const warning = document.getElementById('balanceWarning');
+    if (Math.abs(totalDebit - totalKredit) > 0.01) {
+        warning.classList.remove('hidden');
+    } else {
+        warning.classList.add('hidden');
+    }
+}
+
+// Handler untuk jurnal_form
+viewHandlers['jurnal_form'] = async () => {
+    // Kosongkan baris lama
+    document.getElementById('journalLinesContainer').innerHTML = '';
+    // Ambil data akun
+    const accounts = await fetchData('accounts');
+    // Tambah 2 baris default
+    addJournalLine(accounts);
+    addJournalLine(accounts);
+    // Setup tombol tambah baris
+    document.getElementById('addJournalLine').onclick = () => addJournalLine(accounts);
+
+    // Custom submit handler agar lines dikirim sebagai array
+    const form = document.getElementById('jurnalForm');
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+        // Ambil data utama
+        const data = {
+            journalNumber: form.journalNumber.value,
+            journalDate: form.journalDate.value,
+            description: form.description.value,
+            status: form.status.value,
+            lines: []
+        };
+        // Ambil data baris
+        document.querySelectorAll('#journalLinesContainer .journal-line-item').forEach(line => {
+            data.lines.push({
+                accountId: line.querySelector('select[name="accountId"]').value,
+                debit: Number(line.querySelector('input[name="debit"]').value) || 0,
+                kredit: Number(line.querySelector('input[name="kredit"]').value) || 0,
+                description: line.querySelector('input[name="line_description"]').value || ''
+            });
+        });
+        // Validasi minimal 2 baris
+        if (data.lines.length < 2) {
+            showNotification('Jurnal harus memiliki minimal 2 baris.', 'error');
+            return;
+        }
+        // Validasi balance
+        const totalDebit = data.lines.reduce((sum, l) => sum + (l.debit || 0), 0);
+        const totalKredit = data.lines.reduce((sum, l) => sum + (l.kredit || 0), 0);
+        if (Math.abs(totalDebit - totalKredit) > 0.01 || totalDebit === 0) {
+            showNotification('Total Debit dan Kredit harus seimbang dan tidak nol.', 'error');
+            return;
+        }
+        try {
+            await postData('journals', data);
+            showNotification('Jurnal berhasil disimpan!');
+            showView('jurnal_list', document.querySelector(`a[onclick*="jurnal_list"]`));
+        } catch (error) {
+            showNotification(error.message, 'error');
+        }
+    };
+};
+// ...existing code...
     </script>
 </body>
-
 </html>
