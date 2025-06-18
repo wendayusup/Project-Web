@@ -1,0 +1,26 @@
+<header class="flex flex-col sm:flex-row justify-between sm:items-center mb-10">
+    <div>
+        <h2 class="text-3xl md:text-4xl font-semibold text-brand-black">Log Depresiasi Aset</h2>
+        <p class="text-blue-dark opacity-80 font-pontano mt-1 text-sm md:text-base">Lihat histori kalkulasi depresiasi untuk semua aset tetap.</p>
+    </div>
+    <button onclick="alert('Fungsi untuk menjalankan kalkulasi depresiasi belum diimplementasikan.')" class="mt-4 sm:mt-0 bg-blue-medium hover:bg-blue-medium-darker text-white font-semibold py-2.5 px-5 rounded-button shadow-md hover:shadow-lg transition duration-150 text-sm">Jalankan Kalkulasi Depresiasi</button>
+</header>
+<div class="bg-white p-6 md:p-8 rounded-card shadow-xl">
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="table-header-custom bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">ID Log</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Tanggal Kalkulasi</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Kode Aset</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Nama Aset</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-right">Beban Depresiasi</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-right">Akumulasi Depresiasi</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200" id="tabelLogDepresiasiBody">
+                <!-- Konten tabel akan di-render oleh JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>

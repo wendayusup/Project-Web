@@ -1,0 +1,52 @@
+<header class="mb-10">
+    <h2 id="penerimaanPiutangFormTitle" class="text-3xl md:text-4xl font-semibold text-brand-black">Buat Penerimaan Piutang</h2>
+    <p id="penerimaanPiutangFormSubtitle" class="text-blue-dark opacity-80 font-pontano mt-1 text-sm md:text-base">Masukkan detail penerimaan.</p>
+</header>
+<div class="bg-white p-6 md:p-8 rounded-card shadow-xl max-w-2xl mx-auto">
+    <form id="penerimaanPiutangForm" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label for="receipt_number_ar" class="block text-sm font-medium text-blue-dark">No. Penerimaan</label>
+                <input type="text" name="receipt_number_ar" id="receipt_number_ar" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell" placeholder="Otomatis atau REC/AR/001">
+            </div>
+            <div>
+                <label for="receipt_date_ar" class="block text-sm font-medium text-blue-dark">Tanggal Penerimaan</label>
+                <input type="date" name="receipt_date_ar" id="receipt_date_ar" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed">
+            </div>
+        </div>
+        <div>
+            <label for="receipt_customer_id_ar" class="block text-sm font-medium text-blue-dark">Pelanggan</label>
+            <select id="receipt_customer_id_ar" name="receipt_customer_id_ar" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm data-cell-dimmed">
+                <option value="">Pilih Pelanggan...</option>
+                 <!-- Opsi akan diisi oleh JavaScript -->
+            </select>
+        </div>
+        <div>
+            <label for="receipt_invoice_ref_ar" class="block text-sm font-medium text-blue-dark">No. Faktur Referensi</label>
+            <input type="text" name="receipt_invoice_ref_ar" id="receipt_invoice_ref_ar" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed" placeholder="No. Faktur yang diterima">
+        </div>
+        <div>
+            <label for="receipt_amount_ar" class="block text-sm font-medium text-blue-dark">Jumlah Diterima</label>
+            <input type="number" name="receipt_amount_ar" id="receipt_amount_ar" required min="0" step="any" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed text-right" placeholder="0">
+        </div>
+        <div>
+            <label for="receipt_account_id_ar" class="block text-sm font-medium text-blue-dark">Setor ke Akun (Kas/Bank)</label>
+            <select id="receipt_account_id_ar" name="receipt_account_id_ar" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm data-cell-dimmed">
+                <option value="">Pilih Akun Kas/Bank...</option>
+                 <!-- Opsi akan diisi oleh JavaScript -->
+            </select>
+        </div>
+        <div>
+            <label for="receipt_method_ar" class="block text-sm font-medium text-blue-dark">Metode Penerimaan</label>
+            <input type="text" name="receipt_method_ar" id="receipt_method_ar" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed" placeholder="Transfer Bank, Tunai, dll.">
+        </div>
+        <div>
+            <label for="receipt_notes_ar" class="block text-sm font-medium text-blue-dark">Catatan (Opsional)</label>
+            <textarea id="receipt_notes_ar" name="receipt_notes_ar" rows="2" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed" placeholder="Catatan tambahan..."></textarea>
+        </div>
+        <div class="flex justify-end space-x-3 pt-6">
+            <button type="button" onclick="showView('penerimaan_piutang_list')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 px-5 rounded-button">Batal</button>
+            <button type="submit" class="bg-blue-medium hover:bg-blue-medium-darker text-white font-semibold py-2.5 px-5 rounded-button shadow-md">Simpan Penerimaan</button>
+        </div>
+    </form>
+</div>

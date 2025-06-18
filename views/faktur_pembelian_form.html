@@ -1,0 +1,63 @@
+<header class="mb-10">
+    <h2 id="fakturPembelianFormTitle" class="text-3xl md:text-4xl font-semibold text-brand-black">Buat Faktur Pembelian</h2>
+    <p id="fakturPembelianFormSubtitle" class="text-blue-dark opacity-80 font-pontano mt-1 text-sm md:text-base">Masukkan detail faktur pembelian.</p>
+</header>
+<div class="bg-white p-6 md:p-8 rounded-card shadow-xl">
+    <form id="fakturPembelianForm" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+                <label for="invoice_number_ap" class="block text-sm font-medium text-blue-dark">No. Faktur Vendor</label>
+                <input type="text" name="invoice_number_ap" id="invoice_number_ap" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell" placeholder="Contoh: INV/VENDOR/001">
+            </div>
+            <div>
+                <label for="date_ap" class="block text-sm font-medium text-blue-dark">Tanggal Faktur</label>
+                <input type="date" name="date_ap" id="date_ap" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed">
+            </div>
+            <div>
+                <label for="due_date_ap" class="block text-sm font-medium text-blue-dark">Tanggal Jatuh Tempo</label>
+                <input type="date" name="due_date_ap" id="due_date_ap" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed">
+            </div>
+        </div>
+        <div>
+            <label for="vendor_id_ap" class="block text-sm font-medium text-blue-dark">Vendor</label>
+            <select id="vendor_id_ap" name="vendor_id_ap" required class="mt-1 block w-full px-3 py-2.5 border border-gray-300 bg-white rounded-input shadow-sm data-cell-dimmed">
+                <option value="">Pilih Vendor...</option>
+                <!-- Opsi akan diisi oleh JavaScript -->
+            </select>
+        </div>
+        <div>
+            <label for="description_ap" class="block text-sm font-medium text-blue-dark">Deskripsi Faktur</label>
+            <textarea id="description_ap" name="description_ap" rows="2" class="mt-1 block w-full px-3 py-2.5 border border-gray-300 rounded-input shadow-sm data-cell-dimmed" placeholder="Deskripsi umum faktur..."></textarea>
+        </div>
+
+        <!-- Detail Item Dinamis -->
+        <div class="space-y-4">
+            <h3 class="text-lg font-medium text-blue-dark border-b border-gray-200 pb-2 font-pontano">Detail Barang/Jasa</h3>
+            <div id="invoiceLinesContainerAP" class="space-y-3">
+                <!-- Baris item faktur akan ditambahkan di sini -->
+            </div>
+            <button type="button" id="addInvoiceLineAP" class="text-sm bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-3 rounded-button shadow-sm">+ Tambah Baris</button>
+        </div>
+
+        <!-- Kalkulasi Total -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-4 border-t border-gray-200">
+            <div class="col-span-2 md:col-start-3">
+                <label class="block text-sm font-medium text-right text-blue-dark">Subtotal</label>
+                <p id="subtotalDisplayAP" class="mt-1 text-lg font-semibold data-cell text-right">Rp 0</p>
+            </div>
+            <div class="col-span-2 md:col-start-3">
+                <label for="tax_ap" class="block text-sm font-medium text-right text-blue-dark">Pajak (%)</label>
+                <input type="number" name="tax_ap" id="tax_ap" value="0" min="0" step="0.01" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-input shadow-sm data-cell-dimmed text-right">
+            </div>
+            <div class="col-span-2 md:col-start-3 mt-4">
+                <label class="block text-sm font-medium text-right text-blue-dark">Total Faktur</label>
+                <p id="totalFakturDisplayAP" class="mt-1 text-xl font-bold data-cell text-right">Rp 0</p>
+            </div>
+        </div>
+
+        <div class="flex justify-end space-x-3 pt-6">
+            <button type="button" onclick="showView('faktur_pembelian_list')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 px-5 rounded-button">Batal</button>
+            <button type="submit" class="bg-blue-medium hover:bg-blue-medium-darker text-white font-semibold py-2.5 px-5 rounded-button shadow-md">Simpan Faktur</button>
+        </div>
+    </form>
+</div>

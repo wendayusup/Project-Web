@@ -1,0 +1,24 @@
+<!-- FILE: views/akun_list.html -->
+<header class="flex flex-col sm:flex-row justify-between sm:items-center mb-10">
+    <div>
+        <h2 class="text-3xl md:text-4xl font-semibold text-brand-black">Daftar Akun (CoA)</h2>
+        <p class="text-blue-dark opacity-80 font-pontano mt-1 text-sm md:text-base">Kelola semua akun perusahaan Anda.</p>
+    </div>
+    <button onclick="showView('akun_form', this)" class="mt-4 sm:mt-0 bg-blue-medium hover:bg-blue-medium-darker text-white font-semibold py-2.5 px-5 rounded-button shadow-md">Tambah Akun Baru</button>
+</header>
+<div class="bg-white p-6 md:p-8 rounded-card shadow-xl">
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="table-header-custom bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Kode Akun</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Nama Akun</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Tipe Akun</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">Status</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider min-w-[120px]">Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="tabelAkunBody"></tbody>
+        </table>
+    </div>
+</div>

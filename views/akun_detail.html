@@ -1,0 +1,17 @@
+
+<!-- FILE: views/akun_detail.html -->
+<header class="flex flex-col sm:flex-row justify-between sm:items-center mb-10">
+    <div>
+        <h2 id="akunDetailTitle" class="text-3xl md:text-4xl font-semibold text-brand-black">Detail Akun</h2>
+        <p class="text-blue-dark opacity-80 font-pontano mt-1 text-sm md:text-base">Informasi lengkap mengenai akun.</p>
+    </div>
+    <div>
+        <button onclick="showView('akun_form', this, currentEditingId);" class="bg-blue-medium text-white font-semibold py-2.5 px-5 rounded-button shadow-md mr-3">Edit Akun</button>
+        <button type="button" onclick="showView('akun_list')" class="bg-gray-200 text-gray-700 font-semibold py-2.5 px-5 rounded-button">Kembali ke Daftar</button>
+    </div>
+</header>
+<div class="bg-white p-6 md:p-8 rounded-card shadow-xl">
+    <div id="detailContent" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+        <!-- Konten detail akan diisi oleh JavaScript -->
+    </div>
+</div>
